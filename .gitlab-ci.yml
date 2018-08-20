@@ -8,4 +8,5 @@ build-wedding:
   - master
   stage: build
   script:
+  - echo $MAVEN_HOME
   - mvn clean package
