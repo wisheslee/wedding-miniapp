@@ -11,5 +11,4 @@ build-wedding:
   - pwd
   - $MAVEN_HOME/bin/mvn clean package
   - docker build -t ycycqwedding .
-  - docker stop ycycqwedding
-  - docker run -p 9091:9091 -d ycycqwedding
+  - docker run -p 9091:9091 -itd --rm ycycqwedding
