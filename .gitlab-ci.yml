@@ -13,7 +13,7 @@ build-wedding:
 
 deploy-wedding:
   only:
-  -master
+  - master
   stage: deploy
   script:
   - docker build -t ycycqwedding .
