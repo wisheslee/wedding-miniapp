@@ -16,5 +16,6 @@ deploy-wedding:
   - master
   stage: deploy
   script:
+  - pwd
   - docker build -t ycycqwedding .
   - docker run -p 9091:9091 ycycqwedding
