@@ -8,6 +8,7 @@ build-wedding:
   - master
   stage: build
   script:
+  - pwd
   - echo $MAVEN_HOME
   - cd $MAVEN_HOME/bin
   - ll
