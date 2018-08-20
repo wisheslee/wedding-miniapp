@@ -10,3 +10,11 @@ build-wedding:
   script:
   - pwd
   - $MAVEN_HOME/bin/mvn clean package
+
+deploy-wedding:
+  only:
+  -master
+  stage: deploy
+  script:
+  - docker build -t ycycqwedding .
+  - docker run -p 9091:9091 ycycqwedding
