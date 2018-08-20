@@ -11,5 +11,4 @@ build-wedding:
   - pwd
   - echo $MAVEN_HOME
   - cd $MAVEN_HOME/bin
-  - ll
   - $MAVEN_HOME/bin/mvn clean package
