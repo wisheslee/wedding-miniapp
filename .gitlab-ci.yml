@@ -9,4 +9,4 @@ build-wedding:
   stage: build
   script:
   - echo $MAVEN_HOME
-  - mvn clean package
+  - $MAVEN_HOME/bin/mvn clean package
