@@ -11,4 +11,4 @@ build-wedding:
   - pwd
   - $MAVEN_HOME/bin/mvn clean package
   - docker build -t ycycqwedding .
-  - docker run -p 9091:9091 -itd --rm --restart=always ycycqwedding
+  - docker run -p 9091:9091 -itd --restart=always ycycqwedding
