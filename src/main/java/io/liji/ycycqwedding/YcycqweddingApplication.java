@@ -8,7 +8,5 @@ public class YcycqweddingApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(YcycqweddingApplication.class, args);
-
-
     }
 }
