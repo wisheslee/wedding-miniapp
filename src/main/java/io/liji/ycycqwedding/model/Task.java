@@ -2,7 +2,6 @@ package io.liji.ycycqwedding.model;
 
 import io.liji.ycycqwedding.constants.TaskStatusEnum;
 import lombok.Data;
-import sun.jvm.hotspot.jdi.IntegerTypeImpl;
 
 import java.util.Date;
 
