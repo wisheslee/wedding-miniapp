@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * created by jili on 2018/8/18
  */
 @RestController
-public class AuthController {
+public class CommonController {
     @PostMapping(value = "/auth")
     public String auth() {
         return null;
