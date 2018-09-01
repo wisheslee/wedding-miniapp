@@ -1,4 +1,5 @@
 pwd
+mv src/resources/application-prod.yml src/resources/application.yml
 $MAVEN_HOME/bin/mvn clean package -Dmaven.test.skip=true
 docker stop ycycqwedding
 docker build -t ycycqwedding .
