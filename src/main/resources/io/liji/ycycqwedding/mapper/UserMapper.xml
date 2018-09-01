@@ -15,6 +15,12 @@
         where openid = #{openid}
     </update>
 
+    <update id="updateSessionKey">
+        update `user`
+        set session_key = #{sessionKey}
+        where openid = #{openid}
+    </update>
+
     <update id="updateRewardStatus">
         update `user`
         set reward_status = 1

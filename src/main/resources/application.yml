@@ -8,5 +8,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     show-sql: true
+wechat:
+  appId: wxde61fb45f6d68a5f
+  appSecret: 4b70a22117c2463cf55bbfd6739f65e0
 
 
