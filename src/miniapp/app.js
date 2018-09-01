@@ -22,7 +22,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    url: "http://localhost:2222",
+    url: "https://wedding.allschoolthings.com",
     backup: "https://wedding.allschoolthings.com"
   }
 });
