@@ -60,11 +60,13 @@ public class UserService {
             user = new User();
             user.setOpenid(openid);
             this.createUser(user);
-            List<Task> taskList = taskService.createDefaultTasks(openid);
-            user.setTaskList(taskList);
+            user = this.getUser(openid);
+            taskService.createDefaultTasks(openid);
+
         }
+        user.setTaskList(taskService.getTasksByOpenid(openid));
         //混淆openid，传回前端
-        user.setOpenid("x" + user.getOpenid() + "l");
+        user.setOpenid("x" + openid + "l");
         return JsonResponse.create().setData(user);
     }
 
