@@ -62,6 +62,7 @@ public class UserService {
             this.createUser(user);
             List<Task> taskList = taskService.createDefaultTasks(openid);
             user.setTaskList(taskList);
+            user = this.getUser(openid);
         }
         //混淆openid，传回前端
         user.setOpenid("x" + user.getOpenid() + "l");
