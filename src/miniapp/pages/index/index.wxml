@@ -6,7 +6,6 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-   <button open-type="getUserInfo" lang='zh-CN' bindgetuserinfo="onGotUserInfo">测试</button> 
   <van-row>
     <van-col span="4">4</van-col>
     <van-col span="10" offset="4">10</van-col>
