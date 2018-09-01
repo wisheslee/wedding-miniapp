@@ -56,12 +56,15 @@ public class UserService {
         if (user != null) {
             this.updateSesionKey(openid, sessionKey);
         } else {
+            //有新用户时，创建6个新的task
             user = new User();
             user.setOpenid(openid);
             this.createUser(user);
+            List<Task> taskList = taskService.createDefaultTasks(openid);
+            user.setTaskList(taskList);
         }
-        List<Task> taskList = taskService.createDefaultTasks(openid);
-        user.setTaskList(taskList);
+        //混淆openid，传回前端
+        user.setOpenid("x" + user.getOpenid() + "l");
         return JsonResponse.create().setData(user);
     }
 
