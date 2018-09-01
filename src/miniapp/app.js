@@ -12,9 +12,6 @@ App({
            data: {
              code: res.code
            },
-           header: {
-
-           },
            success(res) {
               console.log(res.data)
            }

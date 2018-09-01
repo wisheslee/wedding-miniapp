@@ -31,10 +31,12 @@ public class UserService {
     private UserMapper userMapper;
     @Resource
     private TaskService taskService;
+    @Resource
+    private WechatApiConstants wechatApiConstants;
 
     public JsonResponse Login(String code) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(WechatApiConstants.getOpenid(code));
+        HttpGet httpGet = new HttpGet(wechatApiConstants.getOpenid(code));
         try {
             CloseableHttpResponse response = httpClient.execute(httpGet);
             HttpEntity entity = response.getEntity();
