@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 /**
  * created by jili on 2018/8/18
  */
-@Data
+
 @Component
 @ConfigurationProperties("wechat")
+@Data
 public class WechatConfig {
 
     /**
