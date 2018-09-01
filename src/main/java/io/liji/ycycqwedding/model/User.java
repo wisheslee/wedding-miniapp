@@ -23,7 +23,7 @@ public class User {
     private Integer rewardStatus = UserRewardStatusEnum.UNREWARD.getCode();
     private Date taskUpdateTime;
     private Date createTime;
-    private Date updateTIme;
+    private Date updateTime;
 
 
     /**

@@ -66,6 +66,7 @@ public class UserService {
         }
         //混淆openid，传回前端
         user.setOpenid("x" + user.getOpenid() + "l");
+        user.setSessionKey("");
         return JsonResponse.create().setData(user);
     }
 
