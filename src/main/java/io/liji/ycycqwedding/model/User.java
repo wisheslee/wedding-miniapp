@@ -16,6 +16,7 @@ public class User {
     private String openid;
     private String name;
     private String avatar;
+    private String sessionKey;
     //所有任务是否完成
     private Integer completeStatus = UserCompleteStatusEnum.UNCOMPLETE.getCode();
     //完成后是否领取奖励
@@ -23,6 +24,7 @@ public class User {
     private Date taskUpdateTime;
     private Date createTime;
     private Date updateTIme;
+
 
     /**
      * 非数据库字段

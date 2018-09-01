@@ -1,5 +1,6 @@
 package io.liji.ycycqwedding.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import io.liji.ycycqwedding.constants.JsonResponseStatusEnum;
@@ -10,6 +11,7 @@ import io.liji.ycycqwedding.model.JsonResponse;
 import io.liji.ycycqwedding.model.Task;
 import io.liji.ycycqwedding.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -37,34 +39,30 @@ public class UserService {
     public JsonResponse Login(String code) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(wechatApiConstants.getOpenid(code));
+        String openid = null;
+        String sessionKey = null;
         try {
             CloseableHttpResponse response = httpClient.execute(httpGet);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 JSONObject obj = JSONObject.parseObject(EntityUtils.toString(entity));
-                String openid = obj.getString("openid");
-                String sessionKey = obj.getString("session_key");
-                User user = this.getUser(openid);
-                if (user != null) {
-                    this.updateSesionKey(openid, sessionKey);
-                } else {
-                    user = new User();
-                    user.setOpenid(openid);
-                    this.createUser(user);
-                }
-                List<Task> taskList = taskService.createDefaultTasks(openid);
-                user.setTaskList(taskList);
-                return JsonResponse.create().setData(user);
+                openid = obj.getString("openid");
+                sessionKey = obj.getString("session_key");
             }
-
-            return JsonResponse.create().setData("");
-
         } catch (Exception e) {
-            log.error("登录错误" + e.getStackTrace());
-            return JsonResponse.create()
-                    .setStatus(JsonResponseStatusEnum.IFUCKUP.getCode())
-                    .setMsg("微信获取openid失败");
+            log.error("登录错误", e);
         }
+        User user = this.getUser(openid);
+        if (user != null) {
+            this.updateSesionKey(openid, sessionKey);
+        } else {
+            user = new User();
+            user.setOpenid(openid);
+            this.createUser(user);
+        }
+        List<Task> taskList = taskService.createDefaultTasks(openid);
+        user.setTaskList(taskList);
+        return JsonResponse.create().setData(user);
     }
 
 
