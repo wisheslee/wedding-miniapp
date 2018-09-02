@@ -98,7 +98,11 @@ public class UserService {
                 return u1.getTaskUpdateTime().compareTo(u2.getTaskUpdateTime());
             }
         });
-        return userList;
+        if (userList.size() > 10) {
+            return userList.subList(0, 10);
+        } else {
+            return userList;
+        }
     }
 
 
