@@ -40,7 +40,8 @@ function Toast(options = {}) {
   }
 
   return toast;
-}
+};
+
 const createMethod = type => options => Toast({
   type, ...parseOptions(options)
 });

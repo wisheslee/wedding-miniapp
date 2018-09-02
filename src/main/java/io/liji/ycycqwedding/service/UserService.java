@@ -10,6 +10,8 @@ import io.liji.ycycqwedding.dao.mapper.UserMapper;
 import io.liji.ycycqwedding.model.JsonResponse;
 import io.liji.ycycqwedding.model.Task;
 import io.liji.ycycqwedding.model.User;
+import io.liji.ycycqwedding.utils.ListUtils;
+import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
@@ -21,7 +23,9 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * created by jili on 2018/8/30
@@ -68,6 +72,41 @@ public class UserService {
         //混淆openid，传回前端
         user.setOpenid("x" + openid + "l");
         return JsonResponse.create().setData(user);
+    }
+
+    public List<User> getUsersCompleteAtLeastOne() {
+        List<User> userList = userMapper.getUsersCompleteAtLeastOne();
+        if(ListUtils.isNullOrEmpty(userList))
+            return new ArrayList<>();
+        List<String> userOpenids = userList.stream().map(User::getOpenid).collect(Collectors.toList());
+        List<Task> usersCompleteTaskList = taskService.getCompleteTasksByOpenids(userOpenids);
+        Map<String, List<Task>> taskMap = usersCompleteTaskList.stream().collect(Collectors.groupingBy(Task::getOpenid));
+        for (User user : userList) {
+            List<Task> tasks = taskMap.get(user.getOpenid());
+            if (tasks != null) {
+                user.setTaskList(tasks);
+            } else {
+                user.setTaskList(new ArrayList<>());
+            }
+        }
+        userList.sort((u1, u2) -> {
+            if(u2.getTaskList().size() > u1.getTaskList().size()) {
+                return 1;
+            } else if (u2.getTaskList().size() < u1.getTaskList().size()) {
+                return -1;
+            } else {
+                return u1.getTaskUpdateTime().compareTo(u2.getTaskUpdateTime());
+            }
+        });
+        if (userList.size() > 10) {
+            return userList.subList(0, 10);
+        } else {
+            return userList;
+        }
+    }
+
+    public void updateInfo(User user) {
+        userMapper.updateInfo(user);
     }
 
 

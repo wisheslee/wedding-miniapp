@@ -1,1 +1,5 @@
 /* pages/task1/task1.wxss */
+@import "../../resouces/weui.wxss";
+.btn-area {
+ padding: 40rpx 20rpx;
+}

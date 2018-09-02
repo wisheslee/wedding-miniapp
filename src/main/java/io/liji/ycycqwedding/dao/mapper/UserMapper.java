@@ -24,5 +24,9 @@ public interface UserMapper {
 
     List<User> getUsersAll();
 
+    List<User> getUsersCompleteAtLeastOne();
+
+    void updateInfo(User user);
+
 
 }

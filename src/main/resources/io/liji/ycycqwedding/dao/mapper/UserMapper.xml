@@ -31,12 +31,23 @@
         where openid = #{openid}
     </update>
 
+    <update id="updateInfo">
+        update `user`
+        set `name` = #{name}, avatar = #{avatar}
+        where openid =#{openid}
+    </update>
+
     <select id="getUser" resultType="io.liji.ycycqwedding.model.User">
         select <include refid="selectFields"/>   from `user` where openid = #{openid}
     </select>
 
     <select id="getUsersAll" resultType="io.liji.ycycqwedding.model.User">
         select <include refid="selectFields"/> from `user`
+    </select>
+
+    <select id="getUsersCompleteAtLeastOne"  resultType="io.liji.ycycqwedding.model.User">
+        select <include refid="selectFields"/> from `user`
+        where task_update_time is not null
     </select>
 
 </mapper>

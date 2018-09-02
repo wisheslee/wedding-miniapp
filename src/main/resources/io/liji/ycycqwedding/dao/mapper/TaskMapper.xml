@@ -23,6 +23,15 @@
     <select id="getTasksByOpenid" resultType="io.liji.ycycqwedding.model.Task">
         select * from task
         where openid = #{openid}
+        order by task_id asc
+    </select>
+
+    <select id="getCompleteTasksByOpenids" resultType="io.liji.ycycqwedding.model.Task">
+        select * from task
+        where status = 1 and openid in
+        <foreach collection="openids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </select>
 
     <update id="deleteTaskByTaskId">

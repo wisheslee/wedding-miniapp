@@ -15,12 +15,18 @@ App({
               this.globalData.userInfo = res.data.data;
             }
           })
+
         }
       }
     });
-  },
-  getFont() {
-    
+    //检查权限
+    wx.getSetting({
+      success: (res) => {
+        if (res.authSetting['scope.userInfo']) {
+          this.globalData.hasAuth = true;
+        }
+      }
+    })
   },
   onError(e) {
     console.error(e);
@@ -29,5 +35,6 @@ App({
     userInfo: "",
     url: "https://wedding.allschoolthings.com",
     backup: "https://wedding.allschoolthings.com",
+    hasAuth: false
   }
 });
