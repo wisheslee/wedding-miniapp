@@ -5,6 +5,7 @@ import com.google.common.base.Strings;
 import io.liji.ycycqwedding.constants.JsonResponseStatusEnum;
 import io.liji.ycycqwedding.constants.WechatApiConstants;
 import io.liji.ycycqwedding.model.JsonResponse;
+import io.liji.ycycqwedding.model.User;
 import io.liji.ycycqwedding.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * created by jili on 2018/8/18
@@ -43,5 +46,11 @@ public class CommonController {
     @GetMapping(value = "hello")
     public String hello() {
         return "hello world!";
+    }
+
+    @GetMapping(value = "/complete_list")
+    public JsonResponse getComleteList() {
+        List<User> userList = userService.getUsersCompleteAtLeastOne();
+        return JsonResponse.create().setData(userList);
     }
 }

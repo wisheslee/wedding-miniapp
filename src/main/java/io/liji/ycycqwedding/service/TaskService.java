@@ -3,6 +3,7 @@ package io.liji.ycycqwedding.service;
 import com.google.common.base.Strings;
 import io.liji.ycycqwedding.dao.mapper.TaskMapper;
 import io.liji.ycycqwedding.model.Task;
+import io.liji.ycycqwedding.utils.ListUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,12 @@ public class TaskService {
         if(Strings.isNullOrEmpty(openid))
             return new ArrayList<>();
         return taskMapper.getTasksByOpenid(openid);
+    }
+
+    public List<Task> getCompleteTasksByOpenids(List<String> openids) {
+        if(ListUtils.isNullOrEmpty(openids))
+            return new ArrayList<>();
+        return taskMapper.getCompleteTasksByOpenids(openids);
     }
 
     void deleteTaskByTaskId(int taskId) {

@@ -9,6 +9,7 @@ Page({
     memoryTextVisible: false,
     memoryText: "",
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    completeList: [],
     imageList: ["/img/01.jpeg", "/img/02.jpeg", "/img/03.jpeg", "/img/04.jpeg", "/img/05.jpeg", "/img/06.jpeg"]
   },
   onLoad: function () {
@@ -27,6 +28,8 @@ Page({
         wx.hideLoading();
       }
     },50);
+    //获取排行榜数据
+    this.getCompleteUser();
   },
   click(event) {
     const index = event.currentTarget.dataset.index;
@@ -57,6 +60,18 @@ Page({
   closeMemoryText() {
     this.setData({
       memoryTextVisible: false
+    })
+  },
+  getCompleteUser() {
+    wx.request({
+      url: app.globalData.url + "/complete_list",
+      success: (res) => {
+        if(res.data.data) {
+          this.setData({
+            completeList: res.data.data
+          })
+        }
+      }
     })
   },
   getReward(event) {

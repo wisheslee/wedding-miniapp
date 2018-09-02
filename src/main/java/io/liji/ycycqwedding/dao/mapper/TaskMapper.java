@@ -19,6 +19,8 @@ public interface TaskMapper {
 
     List<Task> getTasksByOpenid(@Param("openid") String openid);
 
+    List<Task> getCompleteTasksByOpenids(@Param("openids") List<String> openids);
+
     void deleteTaskByTaskId(@Param("taskId") int taskId);
 
     void deleteTaskByOpenidAndTaskId(@Param("openid") String openid, @Param("taskid") int taskId);

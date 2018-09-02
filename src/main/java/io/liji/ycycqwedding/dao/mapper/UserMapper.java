@@ -24,5 +24,7 @@ public interface UserMapper {
 
     List<User> getUsersAll();
 
+    List<User> getUsersCompleteAtLeastOne();
+
 
 }
