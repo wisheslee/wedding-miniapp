@@ -45,6 +45,7 @@ public class CommonController {
     @PostMapping(value = "/login")
     public JsonResponse auth(@RequestBody JSONObject object) {
         String code = object.getString("code");
+        log.info("code" + code);
         if (Strings.isNullOrEmpty(code))
             return JsonResponse.create()
                     .setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode())

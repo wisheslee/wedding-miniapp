@@ -61,7 +61,7 @@ App({
   },
   globalData: {
     userInfo: "",
-    url: "https://wedding.allschoolthings.com",
+    url: "http://localhost:2222",
     online: "https://wedding.allschoolthings.com",
     dev: "http://localhost:2222",
     hasAuth: false
