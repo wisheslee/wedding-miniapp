@@ -137,4 +137,8 @@ public class UserService {
     private void updateSesionKey(String openid, String sesesionKey) {
         userMapper.updateSessionKey(openid, sesesionKey);
     }
+
+    public void updateTaskUpdateTime(String openid) {
+        userMapper.updateTaskUpdateTime(openid);
+    }
 }

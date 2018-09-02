@@ -11,13 +11,7 @@
     <update id="updateTaskStatus">
         update task
         set status = 1
-        where openid = #{openid}
-    </update>
-
-    <update id="updateTaskExtra">
-        update task
-        set extra = #{extra}
-        where openid = #{openid}
+        where openid = #{openid} and task_id = #{taskId}
     </update>
 
     <select id="getTasksByOpenid" resultType="io.liji.ycycqwedding.model.Task">

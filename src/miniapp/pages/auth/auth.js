@@ -22,13 +22,13 @@ Page({
       success: res => {
         app.globalData.hasAuth = true;
         console.log(res)
-        this.globalData.userInfo.name = res.userInfo.nickName;
-        this.globalData.userInfo.avatar = res.userInfo.avatarUrl;
-        wx.setStorageSync("userInfo", this.globalData.userInfo);
+        app.globalData.userInfo.name = res.userInfo.nickName;
+        app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
+        wx.setStorageSync("userInfo", app.globalData.userInfo);
         wx.request({
-          url: this.globalData.url + "/user",
+          url: app.globalData.url + "/user",
           method: "POST",
-          data: this.globalData.userInfo
+          data: app.globalData.userInfo
         })
         wx.navigateTo({
           url: '/pages/index/index',

@@ -20,23 +20,34 @@ Page({
     const value = event.detail.value;
     if(value.husband === "杨成阳" && value.wife === "陈芊" && value.area === "今日东坡") {
       wx.showToast({
-        title: '恭喜集得一张照片，点击查看故事',
-        icon: 'none',
-        duration: 2000,
-        complete() {
-          console.log()
-          if (!app.globalData.hasAuth) {
-            wx.navigateTo({
-              url: '/pages/auth/auth',
-            })
-          } else {
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 1
+        title: '加载中',
+      })
+
+      wx.request({
+        url: app.globalData.url + "/update_task_status",
+        method: "POST",
+        data: {
+          openid: app.globalData.userInfo.openid,
+          taskId: 1
+        },
+        success() {
+          wx.hideToast();
+          wx.showToast({
+            title: '恭喜集得一张照片，点击查看故事',
+            icon: 'none',
+            duration: 2000,
+          })
+          setTimeout(() => {
+            if (!app.globalData.hasAuth) {
+              wx.navigateTo({
+                url: '/pages/auth/auth',
               })
-            }, 1000)
-          }
-          
+            } else {
+                wx.navigateBack({
+                  delta: 1
+                })
+            }
+          }, 1000)
         }
       })
     } else {

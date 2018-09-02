@@ -13,9 +13,7 @@ public interface TaskMapper {
 
     void createTask(Task task);
 
-    void updateTaskStatus(@Param("openid") String openid);
-
-    void updateTaskExtra(@Param("openid") String openid, @Param("extra") String extra);
+    void updateTaskStatus(@Param("openid") String openid, @Param("taskId") int taskId);
 
     List<Task> getTasksByOpenid(@Param("openid") String openid);
 

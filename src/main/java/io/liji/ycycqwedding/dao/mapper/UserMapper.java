@@ -20,6 +20,8 @@ public interface UserMapper {
 
     void updateSessionKey(@Param("openid") String openid, @Param("sessionKey") String sessionKey);
 
+    void updateTaskUpdateTime(@Param("openid") String openid);
+
     User getUser(@Param("openid") String openid);
 
     List<User> getUsersAll();

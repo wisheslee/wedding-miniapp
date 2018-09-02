@@ -7,7 +7,6 @@ Page({
     userInfo: "",
     memoryTextVisible: false,
     memoryText: "",
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     completeList: [],
     imageList: ["/img/01.jpeg", "/img/02.jpeg", "/img/03.jpeg", "/img/04.jpeg", "/img/05.jpeg", "/img/06.jpeg"]
   },
@@ -29,7 +28,11 @@ Page({
         wx.hideLoading();
       }
     },50);
-    //获取排行榜数据
+  },
+  onShow() {
+    if(app.globalData.userInfo) {
+      this.getTaskList();
+    }
     this.getCompleteUser();
   },
   click(event) {
@@ -74,6 +77,31 @@ Page({
             completeList: res.data.data
           })
         }
+      }
+    })
+  },
+  getTaskList() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url: app.globalData.url + "/get_task_list",
+      method: "POST",
+      data: {
+        openid: app.globalData.userInfo.openid
+      },
+      success: res =>{
+        if(res.data.data) {
+          res.data.data.forEach(task => {
+            task.img = this.data.imageList[task.taskId - 1];
+          })
+          this.setData({
+            taskList: res.data.data
+          });
+        }   
+      },
+      complete() {
+        wx.hideLoading();
       }
     })
   },

@@ -4,7 +4,7 @@
     <view class="weui-cells__title">新郎姓名</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" auto-focus name="husband" />
+        <input class="weui-input" focus='{{true}}' confirm-type="下一个" confirm-hold="{{true}}" name="husband" />
       </view>
     </view>
   </view>
@@ -12,7 +12,7 @@
     <view class="weui-cells__title">新娘姓名</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" name="wife" />
+        <input class="weui-input" confirm-type="下一个" confirm-hold="{{true}}" name="wife" />
       </view>
     </view>
   </view>
@@ -20,7 +20,7 @@
     <view class="weui-cells__title">婚礼地址</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" name="area" />
+        <input class="weui-input" name="area" confirm-type="完成" bindconfirm="formSubmit"/>
       </view>
     </view>
   </view>

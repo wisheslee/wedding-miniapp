@@ -35,16 +35,10 @@ public class TaskService {
         taskMapper.createTask(task);
     }
 
-    public void updateTaskStatus(String openid) {
+    public void updateTaskStatus(String openid, int taskId) {
         if (Strings.isNullOrEmpty(openid))
             return;
-        taskMapper.updateTaskStatus(openid);
-    }
-
-    public void updateTaskExtra(String openid, String extra) {
-        if(Strings.isNullOrEmpty(openid))
-            return;
-        taskMapper.updateTaskExtra(openid, extra);
+        taskMapper.updateTaskStatus(openid, taskId);
     }
 
     public List<Task> getTasksByOpenid(@Param("openid") String openid) {

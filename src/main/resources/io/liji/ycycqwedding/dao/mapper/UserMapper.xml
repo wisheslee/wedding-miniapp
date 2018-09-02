@@ -25,6 +25,12 @@
         where openid = #{openid}
     </update>
 
+    <update id="updateTaskUpdateTime">
+        update `user`
+        set task_update_time = now()
+        where openid = #{openid}
+    </update>
+
     <update id="updateRewardStatus">
         update `user`
         set reward_status = 1
