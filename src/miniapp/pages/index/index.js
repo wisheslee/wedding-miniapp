@@ -5,7 +5,6 @@ const moment = require("../../resouces/moment.js")
 Page({
   data: {
     userInfo: "",
-    task1QuestionVisible: false,
     memoryTextVisible: false,
     memoryText: "",
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -13,7 +12,9 @@ Page({
     imageList: ["/img/01.jpeg", "/img/02.jpeg", "/img/03.jpeg", "/img/04.jpeg", "/img/05.jpeg", "/img/06.jpeg"]
   },
   onLoad: function () {
-    wx.showLoading();
+    wx.showLoading({
+      title: "加载中"
+    });
     const timer = setInterval(() => {
       if(app.globalData.userInfo) {
         let taskList = JSON.parse(JSON.stringify(app.globalData.userInfo.taskList));
@@ -35,9 +36,8 @@ Page({
     const index = event.currentTarget.dataset.index;
     switch(index){
       case 0:
-        console.log(222)
-        this.setData({
-          task1QuestionVisible: true
+        wx.navigateTo({
+          url: '/pages/task1/task1',
         })
         break;
       default:

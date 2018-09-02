@@ -31,6 +31,12 @@
         where openid = #{openid}
     </update>
 
+    <update id="updateInfo">
+        update `user`
+        set `name` = #{name}, avatar = #{avatar}
+        where openid =#{openid}
+    </update>
+
     <select id="getUser" resultType="io.liji.ycycqwedding.model.User">
         select <include refid="selectFields"/>   from `user` where openid = #{openid}
     </select>

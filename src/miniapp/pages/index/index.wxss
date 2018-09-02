@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import "../../resouces/weui.wxss";
 .container {
   padding: 40rpx 0;
   background-image: url("https://liji-image.oss-cn-hongkong.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/quality,Q_40/auto-orient,1");

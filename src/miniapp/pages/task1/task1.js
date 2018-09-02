@@ -1,4 +1,6 @@
 // pages/task1/task1.js
+import Toast from '../../miniprogram_npm/vant-weapp/toast/index';
+const app = getApp();
 Page({
 
   /**
@@ -14,53 +16,35 @@ Page({
   onLoad: function (options) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  formSubmit(event) {
+    const value = event.detail.value;
+    if(value.husband === "杨成阳" && value.wife === "陈芊" && value.area === "今日东坡") {
+      wx.showToast({
+        title: '恭喜集得一张照片，点击查看故事',
+        icon: 'none',
+        duration: 2000,
+        complete() {
+          console.log()
+          if (!app.globalData.hasAuth) {
+            wx.navigateTo({
+              url: '/pages/auth/auth',
+            })
+          } else {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1000)
+          }
+          
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '回答错误',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   }
 })

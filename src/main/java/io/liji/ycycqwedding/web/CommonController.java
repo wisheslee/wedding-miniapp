@@ -1,5 +1,6 @@
 package io.liji.ycycqwedding.web;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import io.liji.ycycqwedding.constants.JsonResponseStatusEnum;
@@ -52,5 +53,14 @@ public class CommonController {
     public JsonResponse getComleteList() {
         List<User> userList = userService.getUsersCompleteAtLeastOne();
         return JsonResponse.create().setData(userList);
+    }
+
+    @PostMapping(value = "/user")
+    public JsonResponse updateUser(@RequestBody User user) {
+        if (Strings.isNullOrEmpty(user.getOpenid()))
+            return JsonResponse.create().setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode()).setMsg("没有openid");
+        user.setOpenid(user.getOpenid().substring(1, user.getOpenid().length() - 1));
+        userService.updateInfo(user);
+        return JsonResponse.create();
     }
 }

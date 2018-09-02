@@ -105,6 +105,10 @@ public class UserService {
         }
     }
 
+    public void updateInfo(User user) {
+        userMapper.updateInfo(user);
+    }
+
 
     public void createUser(User user) {
         if (user == null)

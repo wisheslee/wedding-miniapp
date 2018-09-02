@@ -1,13 +1,7 @@
 <scroll-view class="container">
-  <van-popup show="{{ task1QuestionVisible }}">
-    <input type='text' placeholder='新郎姓名'></input>
-    <input type='text' placeholder='新娘姓名'></input>
-    <input type='text' placeholder='婚礼地址'></input>
-    <button size="mini">确认</button>
-  </van-popup>
   <van-popup show="{{ memoryTextVisible }}" custom-class="popup-container" bind:click-overlay="closeMemoryText">
     <view class='popup'>
-    {{memoryText}}
+      {{memoryText}}
     </view>
   </van-popup>
   <view class='sub-container welcome'>
