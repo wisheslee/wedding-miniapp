@@ -1,6 +1,11 @@
 //app.js
 App({
-  onLaunch: function() {
+  onShow: function() {
+    wx.request({
+      url: this.globalData.url + "/errors",
+      method: "POST",
+      data: { msg: "启动啦" }
+    })
     wx.login({
       success: res => {
         if (res.code) {
@@ -39,9 +44,10 @@ App({
               })
             },
             fail() {
-              wx.showToast({
-                title: '网络请求失败！',
-                icon: "none"
+              wx.request({
+                url: this.globalData.url + "/errors",
+                method: "POST",
+                data: { msg: "接口请求失败" }
               })
             }
           })
@@ -55,9 +61,10 @@ App({
         }
       },
       fail() {
-        wx.showToast({
-          title: '启动失败',
-          icon: "none"
+        wx.request({
+          url: this.globalData.url + "/errors",
+          method: "POST",
+          data: { msg: "最外城" }
         })
       }
     });

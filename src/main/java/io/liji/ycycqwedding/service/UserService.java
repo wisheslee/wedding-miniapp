@@ -56,26 +56,21 @@ public class UserService {
         } catch (Exception e) {
             log.error("登录错误", e);
         }
-        log.info("openid" + openid);
         User user = this.getUser(openid);
         if (user != null) {
-            log.info("存在");
             this.updateSesionKey(openid, sessionKey);
         } else {
-            log.info("新建开始");
             //有新用户时，创建6个新的task
             user = new User();
             user.setOpenid(openid);
             this.createUser(user);
             user = this.getUser(openid);
             taskService.createDefaultTasks(openid);
-            log.info("新建借宿");
 
         }
         user.setTaskList(taskService.getTasksByOpenid(openid));
         //混淆openid，传回前端
         user.setOpenid("x" + openid + "l");
-        log.info(JSON.toJSONString(user));
         return JsonResponse.create().setData(user);
     }
 
