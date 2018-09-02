@@ -1,21 +1,19 @@
 /**index.wxss**/
-.userinfo {
+.container {
+  padding: 20rpx 50rpx;
+  background-image: url("https://liji-image.oss-cn-hongkong.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/quality,Q_50/auto-orient,1");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 28rpx;
+}
+.image-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 40rpx;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+.image-container image {
+  width: 275rpx;
+  height: 275rpx;
 }

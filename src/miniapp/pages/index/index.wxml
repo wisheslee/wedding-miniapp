@@ -1,3 +1,57 @@
-<scroll-view>
-  <image src='{{imageList[0]}}' bindtap="click"></image>
-</scroll-view> 
+<scroll-view class="container">
+    <view>
+      <text>欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲``        友，可以在最下面的三个奖励中选择一个。祝你好运!</text>
+    </view>
+    <view class='image-container'>
+      <image wx:for="{{imageList}}" wx:key="{{index}}" mode='aspectFill' src='{{item}}' bindtap="click"></image>
+    </view> 
+    <view class="reward-container">
+      <view>
+        <text>奖励</text>
+        <button type="default" size="default" disabled="{{true}}">新郎手中的大红包</button>
+        <button type="default" size="default" disabled="{{true}}">和新婚夫妇吃火锅</button>
+        <button type="default" size="default" disabled="{{true}}">新郎和伴郎连干三杯</button>
+      </view>
+    </view>
+    <view class='complete-container'>
+      <view>
+        <text>完成列表</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+      <view>
+        <text>路人甲</text>
+        <text>2018-09-02已收集6张</text>
+      </view>
+    </view>
+</scroll-view>

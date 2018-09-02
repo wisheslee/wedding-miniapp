@@ -11,8 +11,8 @@ Page({
     imageList: [
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image0.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image1.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
-      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image2.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
-      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image3.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image2.jpeg?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image3.jpeg?x-oss-process=image/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image4.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image5.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
     ]
