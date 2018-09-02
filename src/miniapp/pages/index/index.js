@@ -98,7 +98,7 @@ Page({
         openid: app.globalData.userInfo.openid
       },
       success: res =>{
-        if(res.data.data) {
+        if(res.data.data && res.data.data.length) {
           res.data.data.forEach(task => {
             task.img = this.data.imageList[task.taskId - 1];
           })
