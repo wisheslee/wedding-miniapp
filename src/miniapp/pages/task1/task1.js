@@ -19,10 +19,9 @@ Page({
   formSubmit(event) {
     const value = event.detail.value;
     if (value.husband === "杨成阳" && value.wife === "陈芊" && value.area === "今日东坡") {
-      wx.showToast({
+      wx.showLoading({
         title: '加载中',
       })
-
       wx.request({
         url: app.globalData.url + "/update_task_status",
         method: "POST",
@@ -31,25 +30,22 @@ Page({
           taskId: 1
         },
         success() {
-          wx.hideToast();
+          wx.hideLoading();
           wx.showToast({
             title: '恭喜集得一张照片，点击查看故事',
             icon: 'none',
             duration: 2000,
           })
           setTimeout(() => {
-            wx.navigateTo({
-              url: '/pages/auth/auth',
-            })
-            // if (!app.globalData.hasAuth) {
-            //   wx.navigateTo({
-            //     url: '/pages/auth/auth',
-            //   })
-            // } else {
-            //     wx.navigateBack({
-            //       delta: 1
-            //     })
-            // }
+            if (!app.globalData.hasAuth) {
+              wx.navigateTo({
+                url: '/pages/auth/auth',
+              })
+            } else {
+                wx.navigateBack({
+                  delta: 1
+                })
+            }
           }, 1000)
         }
       })

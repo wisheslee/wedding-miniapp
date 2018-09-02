@@ -5,6 +5,7 @@ page {
   flex-direction: column
 }
 image {
+  width: 100%;
   flex: 1
 }
 button {

@@ -8,7 +8,13 @@ Page({
     memoryTextVisible: false,
     memoryText: "",
     completeList: [],
-    imageList: ["/img/01.jpeg", "/img/02.jpeg", "/img/03.jpeg", "/img/04.jpeg", "/img/05.jpeg", "/img/06.jpeg"]
+    imageList: ["https://liji-image.oss-cn-hongkong.aliyuncs.com/image0.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image1.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image2.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image3.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image4.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image5.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+]
   },
   onLoad: function () {
     wx.showLoading({
