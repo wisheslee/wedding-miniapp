@@ -4,60 +4,32 @@ const app = getApp();
 
 Page({
   data: {
-    motto: '我们的婚礼',
-    userInfo: {},
+    userInfo: "",
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    bgImage: "https://liji-image.oss-cn-hongkong.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/quality,Q_50/auto-orient,1",
+    imageList: [
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image0.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image1.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image2.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image3.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image4.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+      "https://liji-image.oss-cn-hongkong.aliyuncs.com/image5.JPG?x-oss-process=image/quality,Q_50/auto-orient,1",
+    ]
   },
   onLoad: function () {
-    this.apiTest();
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+    wx.showLoading();
+    const timer = setInterval(() => {
+      if(app.globalData.userInfo) {
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+          userInfo: app.globalData.userInfo
+        });
+        clearInterval(timer);
+        wx.hideLoading();
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo;
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    },50);
   },
-  getUserInfo: function(e) {
-    console.log(e);
-    app.globalData.userInfo = e.detail.userInfo;
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+  click() {
+
   },
-  apiTest: function() {
-    wx.request({
-      url: app.globalData.rootUrl + "/hello",
-      success(res) {
-        console.log(res)
-      }
-    })
-  }
 });
