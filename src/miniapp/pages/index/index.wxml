@@ -33,45 +33,13 @@
       <button class='reward-button' type="default" size="mini" data-category="酒" bindtap="getReward">新郎和伴郎连干三杯</button>
     </view>
   </view>
-  <view class='complete-container sub-container'>
+  <view class='complete-container sub-container' wx:if="{{completeList.length > 0}}">
     <view class='title'>
       完成列表
     </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
-    </view>
-    <view class="complete-person">
-      <text>路人甲</text>
-      <text>2018-09-02已收集6张</text>
+    <view class="complete-person" wx:for="{{completeList}}" wx:key="{{item.openid}}">
+      <text>{{item.name}}</text>
+      <text>{{item.taskStrTime}}已收集{{item.taskList.length}}张</text>
     </view>
   </view>
 </scroll-view>

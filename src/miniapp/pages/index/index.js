@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp();
-
+const moment = require("../../resouces/moment.js")
 Page({
   data: {
     userInfo: "",
@@ -67,6 +67,9 @@ Page({
       url: app.globalData.url + "/complete_list",
       success: (res) => {
         if(res.data.data) {
+          res.data.data.forEach(user => {
+            user.taskStrTime = moment(user.taskUpdateTime).format("YYYYMMDD HH:mm");
+          })
           this.setData({
             completeList: res.data.data
           })
