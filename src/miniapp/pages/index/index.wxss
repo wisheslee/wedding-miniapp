@@ -1,8 +1,9 @@
 /**index.wxss**/
 .container {
   padding: 40rpx 0;
-  background-image: url("https://liji-image.oss-cn-hongkong.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/quality,Q_50/auto-orient,1");
+  background-image: url("https://liji-image.oss-cn-hongkong.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/quality,Q_40/auto-orient,1");
   background-size: cover;
+  background-position-x:center; 
   background-repeat: no-repeat;
   color: #fff;
 }

@@ -1,10 +1,16 @@
 <scroll-view class="container">
+  <van-popup show="{{ task1QuestionVisible }}" >
+    <input type='text' placeholder='新郎姓名'></input>
+    <input type='text' placeholder='新娘姓名'></input>
+    <input type='text' placeholder='婚礼地址'></input>
+    <button size="mini">确认</button>
+  </van-popup>
   <view class='sub-container welcome'>
     欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲友，可以在最下面的三个奖励中选择一个。祝你好运!  
   </view>
   <view class='image-container sub-container'>
-    <view class='image-box' wx:for="{{imageList}}" wx:key="{{index}}">
-      <image class='pic' mode='aspectFill' src='{{item}}' data-index="{{index}}" bindtap="click"></image>
+    <view class='image-box' wx:for="{{imageList}}" wx:key="{{index}}"  data-index="{{index}}" bindtap="click">
+      <image class='pic' mode='aspectFill' src='{{item}}' ></image>
       <image wx:if="{{index === 0 }}" class='icon' src='/img/pointer.png'></image>
        <image wx:if="{{index !== 0 }}" class='icon' src='/img/lock.png'></image>
     </view>
