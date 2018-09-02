@@ -71,6 +71,7 @@ public class UserService {
         user.setTaskList(taskService.getTasksByOpenid(openid));
         //混淆openid，传回前端
         user.setOpenid("x" + openid + "l");
+        log.info(JSON.toJSONString(user));
         return JsonResponse.create().setData(user);
     }
 
