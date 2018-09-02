@@ -1,6 +1,6 @@
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     wx.login({
       success: res => {
         if (res.code) {
@@ -37,10 +37,22 @@ App({
                   }
                 }
               })
+            },
+            fail() {
+              wx.showToast({
+                title: '网络请求失败！',
+                icon: "none"
+              })
             }
           })
 
         }
+      },
+      fail() {
+        wx.showToast({
+          title: '启动失败',
+          icon: "none"
+        })
       }
     });
   },

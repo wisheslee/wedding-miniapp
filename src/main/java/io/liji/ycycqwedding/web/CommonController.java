@@ -90,6 +90,7 @@ public class CommonController {
         if(Strings.isNullOrEmpty(openid))
             return JsonResponse.create().setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode()).setMsg("openid不正确");
         List<Task> taskList = taskService.getTasksByOpenid(openid);
+        log.info("get_task_list", taskList.size(), openid);
         return JsonResponse.create().setData(taskList);
     }
 }

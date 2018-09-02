@@ -8,6 +8,7 @@ Page({
     memoryTextVisible: false,
     memoryText: "",
     completeList: [],
+    taskList:[],
     imageList: ["https://liji-image.oss-cn-hongkong.aliyuncs.com/image0.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image1.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image2.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
@@ -36,7 +37,7 @@ Page({
     },50);
   },
   onShow() {
-    if(app.globalData.userInfo) {
+    if(app.globalData.userInfo.openid) {
       this.getTaskList();
     }
     this.getCompleteUser();
