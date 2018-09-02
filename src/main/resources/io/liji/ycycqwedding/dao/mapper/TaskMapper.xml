@@ -23,6 +23,7 @@
     <select id="getTasksByOpenid" resultType="io.liji.ycycqwedding.model.Task">
         select * from task
         where openid = #{openid}
+        order by task_id asc
     </select>
 
     <update id="deleteTaskByTaskId">

@@ -1,26 +1,36 @@
 <scroll-view class="container">
-  <van-popup show="{{ task1QuestionVisible }}" >
+  <van-popup show="{{ task1QuestionVisible }}">
     <input type='text' placeholder='新郎姓名'></input>
     <input type='text' placeholder='新娘姓名'></input>
     <input type='text' placeholder='婚礼地址'></input>
     <button size="mini">确认</button>
   </van-popup>
+  <van-popup show="{{ memoryTextVisible }}" custom-class="popup-container" bind:click-overlay="closeMemoryText">
+    <view class='popup'>
+    {{memoryText}}
+    </view>
+  </van-popup>
   <view class='sub-container welcome'>
-    欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲友，可以在最下面的三个奖励中选择一个。祝你好运!  
+    欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲友，可以在最下面的三个奖励中选择一个。祝你好运!
   </view>
   <view class='image-container sub-container'>
-    <view class='image-box' wx:for="{{imageList}}" wx:key="{{index}}"  data-index="{{index}}" bindtap="click">
-      <image class='pic' mode='aspectFill' src='{{item}}' ></image>
-      <image wx:if="{{index === 0 }}" class='icon' src='/img/pointer.png'></image>
-       <image wx:if="{{index !== 0 }}" class='icon' src='/img/lock.png'></image>
+    <view wx:for="{{taskList}}" wx:key="{{item.id}}">
+      <view wx:if="{{item.status === 0}}" class='image-box' data-index="{{index}}" bindtap="click">
+        <image class='pic' mode='aspectFill' src='{{item.img}}'></image>
+        <image wx:if="{{index === 0 }}" class='icon' src='/img/pointer.png'></image>
+        <image wx:if="{{index !== 0 }}" class='icon' src='/img/lock.png'></image>
+      </view>
+      <view wx:if="{{item.status === 1}}" class='image-box' data-index="{{index}}" bindtap="showMemory">
+        <image class='full-pic' mode='aspectFill' src='{{item.img}}'></image>
+      </view>
     </view>
   </view>
   <view class="reward-container sub-container">
     <view>
       <view class='title'>奖励</view>
-      <button class='reward-button' type="default" size="mini">新郎手中的大红包</button>
-      <button class='reward-button' type="default" size="mini">和新婚夫妇吃火锅</button>
-      <button class='reward-button' type="default" size="mini">新郎和伴郎连干三杯</button>
+      <button class='reward-button' type="default" size="mini" data-category="红包" bindtap="getReward">新郎手中的大红包</button>
+      <button class='reward-button' type="default" size="mini" data-category="火锅" bindtap="getReward">和新婚夫妇吃火锅</button>
+      <button class='reward-button' type="default" size="mini" data-category="酒" bindtap="getReward">新郎和伴郎连干三杯</button>
     </view>
   </view>
   <view class='complete-container sub-container'>
