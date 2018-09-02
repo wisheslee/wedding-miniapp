@@ -1,57 +1,61 @@
 <scroll-view class="container">
+  <view class='sub-container welcome'>
+    欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲友，可以在最下面的三个奖励中选择一个。祝你好运!  
+  </view>
+  <view class='image-container sub-container'>
+    <view class='image-box' wx:for="{{imageList}}" wx:key="{{index}}">
+      <image class='pic' mode='aspectFill' src='{{item}}' data-index="{{index}}" bindtap="click"></image>
+      <image wx:if="{{index === 0 }}" class='icon' src='/img/pointer.png'></image>
+       <image wx:if="{{index !== 0 }}" class='icon' src='/img/lock.png'></image>
+    </view>
+  </view>
+  <view class="reward-container sub-container">
     <view>
-      <text>欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲``        友，可以在最下面的三个奖励中选择一个。祝你好运!</text>
+      <view class='title'>奖励</view>
+      <button class='reward-button' type="default" size="mini">新郎手中的大红包</button>
+      <button class='reward-button' type="default" size="mini">和新婚夫妇吃火锅</button>
+      <button class='reward-button' type="default" size="mini">新郎和伴郎连干三杯</button>
     </view>
-    <view class='image-container'>
-      <image wx:for="{{imageList}}" wx:key="{{index}}" mode='aspectFill' src='{{item}}' bindtap="click"></image>
-    </view> 
-    <view class="reward-container">
-      <view>
-        <text>奖励</text>
-        <button type="default" size="default" disabled="{{true}}">新郎手中的大红包</button>
-        <button type="default" size="default" disabled="{{true}}">和新婚夫妇吃火锅</button>
-        <button type="default" size="default" disabled="{{true}}">新郎和伴郎连干三杯</button>
-      </view>
+  </view>
+  <view class='complete-container sub-container'>
+    <view class='title'>
+      完成列表
     </view>
-    <view class='complete-container'>
-      <view>
-        <text>完成列表</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
-      <view>
-        <text>路人甲</text>
-        <text>2018-09-02已收集6张</text>
-      </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
     </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+    <view class="complete-person">
+      <text>路人甲</text>
+      <text>2018-09-02已收集6张</text>
+    </view>
+  </view>
 </scroll-view>

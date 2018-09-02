@@ -19,6 +19,9 @@ App({
       }
     });
   },
+  getFont() {
+    
+  },
   onError(e) {
     console.error(e);
   },

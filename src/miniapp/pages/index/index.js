@@ -29,7 +29,14 @@ Page({
       }
     },50);
   },
-  click() {
-
+  click(event) {
+    const index = event.currentTarget.dataset.index;
+    switch(index){
+      case 0:
+        console.log(22222)
+        wx.navigateTo({"url": "/pages/task1/task1"})
+      default:
+        console.log(11111)
+    }
   },
 });
