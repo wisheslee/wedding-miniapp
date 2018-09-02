@@ -14,9 +14,12 @@ import org.springframework.http.converter.HttpMessageConverter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.alibaba.fastjson.serializer.SerializerFeature.WriteMapNullValue;
+
 @SpringBootApplication
 @MapperScan("io.liji.ycycqwedding.dao.mapper")
 public class YcycqweddingApplication {
+
 
     public static void main(String[] args) {
         SpringApplication.run(YcycqweddingApplication.class, args);
@@ -47,7 +50,7 @@ public class YcycqweddingApplication {
         fastConverter.setSupportedMediaTypes(supportedMediaTypes);
         //2、添加fastjson的配置信息
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat, WriteMapNullValue);
         //3、在convert中添加配置信息
         fastConverter.setFastJsonConfig(fastJsonConfig);
         //4、将convert添加到converters中

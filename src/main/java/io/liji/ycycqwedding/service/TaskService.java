@@ -19,14 +19,13 @@ public class TaskService {
     @Resource
     private TaskMapper taskMapper;
 
-    public List<Task> createDefaultTasks(String openid) {
+    public void createDefaultTasks(String openid) {
         for (int i = 1; i < 7; i++) {
             Task task = new Task();
             task.setOpenid(openid);
             task.setTaskId(i);
             this.createTask(task);
         }
-        return this.getTasksByOpenid(openid);
     }
 
     private void createTask(Task task) {

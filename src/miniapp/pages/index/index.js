@@ -4,60 +4,39 @@ const app = getApp();
 
 Page({
   data: {
-    motto: '我们的婚礼',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    userInfo: "",
+    task1QuestionVisible: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    imageList: ["/img/01.jpeg", "/img/02.jpeg", "/img/03.jpeg", "/img/04.jpeg", "/img/05.jpeg", "/img/06.jpeg"]
   },
   onLoad: function () {
-    this.apiTest();
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+    wx.showLoading();
+    const timer = setInterval(() => {
+      if(app.globalData.userInfo) {
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+          userInfo: app.globalData.userInfo
+        });
+        clearInterval(timer);
+        wx.hideLoading();
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo;
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+    },50);
+  },
+  click(event) {
+    const index = event.currentTarget.dataset.index;
+    console.log(111, index)
+    switch(index){
+      case 0:
+        console.log(222)
+        this.setData({
+          task1QuestionVisible: true
+        })
+        break;
+      default:
+        wx.showToast({
+          title: '请先扫对应二维码',
+          icon: "none",
+          duration: 2000
+        })
     }
   },
-  getUserInfo: function(e) {
-    console.log(e);
-    app.globalData.userInfo = e.detail.userInfo;
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-  apiTest: function() {
-    wx.request({
-      url: app.globalData.rootUrl + "/hello",
-      success(res) {
-        console.log(res)
-      }
-    })
-  }
 });
