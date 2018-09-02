@@ -18,7 +18,7 @@ Page({
   },
   formSubmit(event) {
     const value = event.detail.value;
-    if(value.husband === "杨成阳" && value.wife === "陈芊" && value.area === "今日东坡") {
+    if (value.husband === "杨成阳" && value.wife === "陈芊" && value.area === "今日东坡") {
       wx.showToast({
         title: '加载中',
       })
@@ -38,15 +38,18 @@ Page({
             duration: 2000,
           })
           setTimeout(() => {
-            if (!app.globalData.hasAuth) {
-              wx.navigateTo({
-                url: '/pages/auth/auth',
-              })
-            } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-            }
+            wx.navigateTo({
+              url: '/pages/auth/auth',
+            })
+            // if (!app.globalData.hasAuth) {
+            //   wx.navigateTo({
+            //     url: '/pages/auth/auth',
+            //   })
+            // } else {
+            //     wx.navigateBack({
+            //       delta: 1
+            //     })
+            // }
           }, 1000)
         }
       })

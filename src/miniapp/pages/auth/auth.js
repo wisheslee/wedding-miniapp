@@ -21,7 +21,7 @@ Page({
       lang: "zh_CN",
       success: res => {
         app.globalData.hasAuth = true;
-        console.log(res)
+        console.log("getUserInfo", res)
         app.globalData.userInfo.name = res.userInfo.nickName;
         app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
         wx.setStorageSync("userInfo", app.globalData.userInfo);

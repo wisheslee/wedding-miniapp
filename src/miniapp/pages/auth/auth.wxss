@@ -1,1 +1,12 @@
 /* pages/auth/auth.wxss */
+page {
+  height: 100%;
+  display: flex;
+  flex-direction: column
+}
+image {
+  flex: 1
+}
+button {
+  margin: 50rpx 30rpx;
+}

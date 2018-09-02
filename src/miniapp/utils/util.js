@@ -1,19 +1,30 @@
-const formatTime = date => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-};
-
-const formatNumber = n => {
-  n = n.toString();
-  return n[1] ? n : '0' + n
-};
-
-module.exports = {
-  formatTime: formatTime
-};
+const getUserInfoAuth = function() {
+  wx.getUserInfo({
+    withCredentials: false,
+    lang: "zh_CN",
+    success: res => {
+      app.globalData.hasAuth = true;
+      console.log(res)
+      app.globalData.userInfo.name = res.userInfo.nickName;
+      app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
+      wx.setStorageSync("userInfo", app.globalData.userInfo);
+      wx.showLoading({
+        title: '加载中',
+      })
+      wx.request({
+        url: app.globalData.url + "/user",
+        method: "POST",
+        data: app.globalData.userInfo,
+        success: () => {
+          wx.navigateTo({
+            url: '/pages/index/index',
+          })
+        },
+        complete() {
+          wx.hideLoading();
+        }
+      })
+      
+    }
+  })
+}
