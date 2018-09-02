@@ -46,6 +46,12 @@ App({
             }
           })
 
+        } else {
+          wx.request({
+            url: this.globalData.url + "/errors",
+            method: "POST",
+            data: {res: res}
+          })
         }
       },
       fail() {
@@ -61,7 +67,7 @@ App({
   },
   globalData: {
     userInfo: "",
-    url: "http://localhost:2222",
+    url: "https://wedding.allschoolthings.com",
     online: "https://wedding.allschoolthings.com",
     dev: "http://localhost:2222",
     hasAuth: false

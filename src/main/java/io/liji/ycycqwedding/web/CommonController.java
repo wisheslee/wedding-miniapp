@@ -2,6 +2,7 @@ package io.liji.ycycqwedding.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONReader;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import io.liji.ycycqwedding.constants.JsonResponseStatusEnum;
@@ -93,5 +94,11 @@ public class CommonController {
         List<Task> taskList = taskService.getTasksByOpenid(openid);
         log.info("get_task_list，数量" + taskList.size() + "openid"+ openid);
         return JsonResponse.create().setData(taskList);
+    }
+
+    @PostMapping(value = "/errors")
+    public JsonResponse errors(@RequestBody JSONObject object) {
+        log.info("出错啦", JSON.toJSONString(object));
+        return JsonResponse.create();
     }
 }
