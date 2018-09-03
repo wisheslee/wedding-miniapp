@@ -22,9 +22,9 @@
   <view class="reward-container sub-container">
     <view>
       <view class='title'>奖励</view>
-      <button class='reward-button' type="default" size="mini" data-category="红包" bindtap="getReward">新郎手中的大红包</button>
-      <button class='reward-button' type="default" size="mini" data-category="火锅" bindtap="getReward">和新婚夫妇吃火锅</button>
-      <button class='reward-button' type="default" size="mini" data-category="酒" bindtap="getReward">新郎和伴郎连干三杯</button>
+      <button class='reward-button' type="default"  data-category="红包" bindtap="getReward">新郎手中的大红包</button>
+      <button class='reward-button' type="default"  data-category="火锅" bindtap="getReward">和新婚夫妇吃火锅</button>
+      <button class='reward-button' type="default"  data-category="酒" bindtap="getReward">新郎和伴郎连干三杯</button>
     </view>
   </view>
   <view class='complete-container sub-container' wx:if="{{completeList.length > 0}}">

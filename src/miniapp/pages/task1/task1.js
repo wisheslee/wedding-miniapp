@@ -18,7 +18,7 @@ Page({
   },
   formSubmit(event) {
     const value = event.detail.value;
-    if (value.husband === "杨成阳" && value.wife === "陈芊" && value.area === "今日东坡") {
+    if (value.husband === "杨成阳" && value.wife === "陈芊") {
       wx.showLoading({
         title: '加载中',
       })

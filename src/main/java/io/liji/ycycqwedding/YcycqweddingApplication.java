@@ -11,14 +11,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import static com.alibaba.fastjson.serializer.SerializerFeature.WriteMapNullValue;
 
 @SpringBootApplication
 @MapperScan("io.liji.ycycqwedding.dao.mapper")
 public class YcycqweddingApplication {
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+    }
 
 
     public static void main(String[] args) {

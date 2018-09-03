@@ -12,15 +12,7 @@
     <view class="weui-cells__title">新娘姓名</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" confirm-type="下一个" confirm-hold="{{true}}" name="wife" />
-      </view>
-    </view>
-  </view>
-  <view class="page-section">
-    <view class="weui-cells__title">婚礼地址</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" name="area" confirm-type="完成"/>
+        <input class="weui-input" name="wife" />
       </view>
     </view>
   </view>
