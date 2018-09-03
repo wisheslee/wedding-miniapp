@@ -45,6 +45,9 @@
         </rollingPolicy>
     </appender>
 
+    <!--打印mybatis sql-->
+    <logger name="io.liji.ycycqwedding.dao" level="DEBUG"></logger>
+
     <root level="info">
         <appender-ref ref="consoleLog" />
         <appender-ref ref="fileInfoLog" />
