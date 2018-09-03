@@ -55,6 +55,7 @@ public class CommonController {
 
     @GetMapping(value = "hello")
     public String hello() {
+        log.info("测试接口");
         return "hello world!";
     }
 
