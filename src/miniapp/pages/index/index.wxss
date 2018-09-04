@@ -9,9 +9,15 @@
   color: #fff;
   min-height: 100%;
 }
+
+.container .sub-container {
+  padding: 0 66rpx;
+}
+
 .welcome {
   font-size: 14px;
   text-indent: 2em;
+  padding: 0 100rpx !important;
 }
 
 .title {
@@ -20,9 +26,7 @@
   margin-bottom: 20rpx;
 }
 
-.container .sub-container {
-  padding: 0 66rpx;
-}
+
 
 .image-container {
   display: flex;
