@@ -88,8 +88,23 @@
   font-size: 16px;
 }
 
-.popup {
+.popup-container {
+  width: 75%;
   color: #000;
-  padding: 40rpx;
   font-size: 13px;
+}
+
+.popup-image {
+  width: 100%;
+}
+
+.popup-text {
+  padding: 40rpx 40rpx;
+  text-indent: 2em;
+}
+
+.popup-button {
+  background-color: #52A5E5 !important;
+  color: #fff !important;
+  margin: 0rpx 20rpx 20rpx;
 }

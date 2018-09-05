@@ -7,6 +7,7 @@ Page({
     userInfo: "",
     memoryTextVisible: false,
     memoryText: "",
+    memoryImage: "",
     completeList: [],
     taskList:[],
     imageList: ["https://liji-image.oss-cn-hongkong.aliyuncs.com/image0.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
@@ -15,7 +16,15 @@ Page({
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image3.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image4.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image.oss-cn-hongkong.aliyuncs.com/image5.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
-]
+    ],
+    textList:[
+      "2016年9月13日，是我们两个月前约定的领证日期，我们买了新衣服、精心打扮了一番，专门到川大拍了结婚证照。当我们悠闲的到锦江区准备领证时，发现我们都忘带身份证！于是急忙赶回家拿了身份证，飞奔到金牛区民政局赶在工作人员下班之前领到了我们的红本本，开心~",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
   },
   onLoad: function () {
     wx.showLoading({
@@ -60,12 +69,11 @@ Page({
   },
   showMemory(event) {
     const index = event.currentTarget.dataset.index;
-    if(index === 0) {
-      this.setData({
-        memoryTextVisible: true,
-        memoryText: "2016年9月13日，是我们两个月前约定的领证日期，我们买了新衣服、精心打扮了一番，专门到川大拍了结婚证照。当我们悠闲的到锦江区准备领证时，发现我们都忘带身份证！于是急忙赶回家拿了身份证，飞奔到金牛区民政局赶在工作人员下班之前领到了我们的红本本，开心~"
-      })
-    }
+    this.setData({
+      memoryTextVisible: true,
+      memoryText: this.data.textList[index],
+      memoryImage: this.data.imageList[index]
+    })
   },
   closeMemoryText() {
     this.setData({
@@ -122,5 +130,10 @@ Page({
         duration: 2000
       })
     }
+  },
+  preview() {
+    wx.previewImage({
+      urls: [this.data.memoryImage] // 需要预览的图片http链接列表
+    })
   }
 });

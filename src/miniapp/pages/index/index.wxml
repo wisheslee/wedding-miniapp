@@ -1,8 +1,10 @@
 <scroll-view class="container">
   <van-popup show="{{ memoryTextVisible }}" custom-class="popup-container" bind:click-overlay="closeMemoryText">
-    <view class='popup'>
+    <image class='popup-image' src='https://liji-image.oss-cn-hongkong.aliyuncs.com/%E8%8A%8A%E8%8A%8A%E6%87%92%E6%B4%8B%E6%B4%8B%E8%83%8C%E9%9D%A2.jpg' mode='widthFix'></image>
+    <view class='popup-text'>
       {{memoryText}}
     </view>
+    <button class='popup-button' type="default" bindtap="preview">查看大图</button>
   </van-popup>
   <view class='sub-container welcome'>
     欢迎来到我们的回忆世界，我们将5个二维码散布在婚礼现场,每一个二维码可以开启一段回忆相片。翻看每一张相片，都需要完成我们设置的测验，通过之后便可以走进一段我们的回忆。最先收集齐6张照片的10位亲友，可以在最下面的三个奖励中选择一个。祝你好运!
