@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
-
+    <springProperty scope="context" name="logpath" source="logpath"/>
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>
@@ -24,7 +24,7 @@
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>/var/log/liji/ycycqwedding/%d/info.%d.log</fileNamePattern>
+            <fileNamePattern>/var/log/liji/${logpath}/%d/info.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 
@@ -41,7 +41,7 @@
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>/var/log/liji/ycycqwedding/%d/error.%d.log</fileNamePattern>
+            <fileNamePattern>/var/log/liji/${logpath}/%d/error.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 

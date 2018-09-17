@@ -9,3 +9,10 @@ build-wedding:
   stage: build
   script:
   - sh deploy.sh
+
+build-test:
+  only:
+  - test
+  stage: build
+  script:
+  - sh deploy.sh

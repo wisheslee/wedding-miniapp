@@ -4,7 +4,7 @@ spring:
   datasource:
     username: liji
     password: Syx002183
-    url: jdbc:mysql://47.75.114.178:3306/ycycqweddingtest?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://172.31.213.8:3306/ycycqweddingtest?characterEncoding=utf-8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     show-sql: true
@@ -15,5 +15,3 @@ logpath: ycycqweddingtest
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-
-

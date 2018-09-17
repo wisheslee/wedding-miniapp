@@ -9,4 +9,6 @@ image {
 }
 button {
   margin: 50rpx 30rpx;
+  background-color: #52A5E5 !important;
+  color: #fff !important;
 }
