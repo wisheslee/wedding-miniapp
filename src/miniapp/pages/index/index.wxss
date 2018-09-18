@@ -2,7 +2,7 @@
 @import "../../resouces/weui.wxss";
 .container {
   padding: 40rpx 0;
-  background-image: url("https://liji-image.oss-cn-hongkong.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/resize,l_1080/quality,Q_70/auto-orient,1");
+  background-image: url("https://liji-image.oss-cn-hangzhou.aliyuncs.com/backgroundImage.jpg?x-oss-process=image/resize,l_1080/quality,Q_70/auto-orient,1");
   background-size: cover;
   background-position-x:center; 
   background-repeat: no-repeat;

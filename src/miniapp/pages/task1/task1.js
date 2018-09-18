@@ -1,5 +1,4 @@
-// pages/task1/task1.js
-import Toast from '../../miniprogram_npm/vant-weapp/toast/index';
+import util from '../../utils/util'
 const app = getApp();
 Page({
 
@@ -37,15 +36,7 @@ Page({
             duration: 2000,
           })
           setTimeout(() => {
-            if (!app.globalData.hasAuth) {
-              wx.navigateTo({
-                url: '/pages/auth/auth',
-              })
-            } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-            }
+            util.checkAuth();
           }, 1000)
         }
       })
