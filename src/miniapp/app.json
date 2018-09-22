@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/task1/task1",
-    "pages/auth/auth"
+    "pages/auth/auth",
+    "pages/task4/task4"
   ],
   "window": {
     "backgroundTextStyle": "light",
