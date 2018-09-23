@@ -9,6 +9,10 @@ export default {
         url: '/pages/index/index',
       })
     }
+  },
+  //碰撞算法
+  collisionAlgorithm(position1, size1, position2, size2) {
+
   }
 }
 
