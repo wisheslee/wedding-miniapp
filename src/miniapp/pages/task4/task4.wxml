@@ -1,22 +1,11 @@
 <!--pages/task4/task4.wxml-->
-<view class="root-container" bind:touchstart="erase1">
+<view class="container">
   <view class="text-container">
-    <text>
-      "杨宝，把碗洗了哈"
-    </text>
+    "杨宝，把碗洗了！"
   </view>
-  <view class="image-container">
-    <image mode="widthFix" src="../../resouces/dish.png"></image>
-    <view class="dirty-container" bind:touchmove="erase">
-      <block wx:for="{{list}}" wx:for-index="i" wx:key="i" wx:for-item="item">
-        <view class="dirty">
-          <image src="../../resouces/dirty.png"></image>
-          <block wx:for="{{item}}" wx:for-index="j" wx:key="j" wx:for-item="touchItem">
-            <view wx:if="{{touchItem === 1}}" data-index="{{i + '-' + j}}"  class="touch-item touch-item-show"></view>
-            <view wx:if="{{touchItem === 0}}" class="touch-item touch-item-hidden"></view>
-          </block>
-        </view>
-      </block>
-    </view>
+  <view class="canvas-container">
+    <canvas class="canvas" canvas-id="task4"
+            bindtouchstart="startHandler" bindtouchmove="moveHandler" bindtouchend="endHandler">
+    </canvas>
   </view>
 </view>

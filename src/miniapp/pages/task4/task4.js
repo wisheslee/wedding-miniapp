@@ -1,87 +1,120 @@
 // pages/task4/task4.js
+let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1;
 Page({
   data: {
     list: [],
     positions: [],
     queue: [],
   },
-  onLoad() {
-    let arr = [];
-    for(let i = 0; i < 9; i++) {
-      let arr1 = []
-      for(let j = 0; j < 16; j++) {
-        arr1.push(1)
-      }
-      arr.push(arr1)
-    }
-    this.setData({
-      list: arr
-    })
-  },
   onReady() {
-    wx.createSelectorQuery().selectAll(".touch-item").fields({
-      dataset: true,
-      rect: true,
-    }, res => {
-      res  = res ? res : [];
-      this.setData({
-        positions: res
-      })
-    }).exec();
-    this.detect();
+    ctx = wx.createCanvasContext("task4");
+    // ctx.globalCompositeOperation = "destination-out";
+    // ctx.drawImage("../../resouces/dish.png", 0, 0, 375, 375);
+    ctx.drawImage("../../resouces/dirty.png", 70, 70, 70, 70);
+    ctx.drawImage("../../resouces/dirty.png", 270, 90, 80, 80);
+    ctx.drawImage("../../resouces/dirty.png", 60, 240, 100, 100);
+    ctx.drawImage("../../resouces/dirty.png", 185, 185, 120, 120);
+    ctx.drawImage("../../resouces/dirty.png", 160, 100, 110, 110);
+    ctx.drawImage("../../resouces/dirty.png", 80, 160, 90, 90);
+    ctx.draw();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = radius * 2;
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "white";
+    // ctx.globalCompositeOperation = "destination-out";
   },
-  erase(e) {
-    this.data.queue.push(e);
+  startHandler(e) {
+    let c = this.getCoordinate(e);
+    ctx.save();
+    ctx.beginPath();
+    console.log(c);
+    ctx.arc(c.x, c.y, radius, 0, 2 * Math.PI);
+    ctx.clip();
+    ctx.clearRect(0, 0, width, height);
+    ctx.draw(true);
+    ctx.restore();
+    x = c.x;
+    y = c.y;
   },
-  detect() {
-    //记得销毁
-    setInterval(() => {
-      if (this.data.queue.length) {
-        this.handleEvent();
+  moveHandler(e) {
+    let c = this.getCoordinate(e);
+    let x2 = c.x;
+    let y2 = c.y;
+    let x1 = x;
+    let y1 = y;
+
+    var asin = radius * Math.sin(Math.atan((y2 - y1) / (x2 - x1)));
+    var acos = radius * Math.cos(Math.atan((y2 - y1) / (x2 - x1)));
+    var x3 = x1 + asin;
+    var y3 = y1 - acos;
+    var x4 = x1 - asin;
+    var y4 = y1 + acos;
+    var x5 = x2 + asin;
+    var y5 = y2 - acos;
+    var x6 = x2 - asin;
+    var y6 = y2 + acos;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x2, y2, radius, 0, 2 * Math.PI);
+    ctx.clip();
+    ctx.clearRect(0, 0, width, height);
+    ctx.draw(true);
+    ctx.restore();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x3, y3);
+    ctx.lineTo(x5, y5);
+    ctx.lineTo(x6, y6);
+    ctx.lineTo(x4, y4);
+    ctx.closePath();
+    ctx.clip();
+    ctx.clearRect(0, 0, width, height);
+    ctx.draw(true);
+    ctx.restore();
+
+    x = x2;
+    y = y2;
+  },
+  endHandler(e) {
+    wx.canvasGetImageData({
+      canvasId: 'task4',
+      x: 0,
+      y: 0,
+      width: width,
+      height: height,
+      success(imgData) {
+        let flag = imgData.data.find(item => item ===1);
+        console.log(flag);
       }
-    }, 100)
+    })
+
   },
-  handleEvent() {
-    if (!this.data.queue.length) {
-      return;
-    }
-    let e = this.data.queue.splice(0, 1)[0];
-    this.handleErase(e);
-    if (this.data.queue.length) {
-      this.handleEvent();
-    }
-  },
-  handleErase(e) {
+  getCoordinate(e) {
     let touch = e.touches[0];
-    if(!touch) {
-      return;
-    }
-    let x = touch.pageX;
-    let y = touch.pageY + 50;
-    console.log(111, x, y, e);
-    let positions = this.data.positions;
-    for(let i = 0; i < positions.length; i++) {
-      let position = positions[i];
-      console.log("left, right, top, bottom", position.left, position.right, position.top, position.bottom);
-      if(position.left < x && x < position.right && position.top < y && y <position.bottom) {
-        console.log(222, position);
-        let indexes = position.dataset.index;
-        if (!indexes) {
-          break;
-        }
-        indexes = indexes.split("-");
-        if ((!indexes instanceof Array) || indexes.length !== 2) {
-          break;
-        }
-        let list = this.data.list;
-        list[indexes[0]][indexes[1]] = 0;
-        this.setData({
-          list: list
-        });
-      }
+    return {
+      x: touch ? touch.x : 0,
+      y: touch ? touch.y : 0,
     }
   },
-  erase1(e) {
-    console.log(e);
+  drawLine(x1, y1, x2, y2) {
+    x = x1;
+    y = y1;
+    ctx.save();
+    ctx.beginPath();
+    if (arguments.length === 2) {
+      ctx.arc(x1, y1, radius, 0, 2 * Math.PI);
+      ctx.fill();
+    } else {
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.fill();
+      x = x2;
+      y = y2;
+    }
+    ctx.draw(true);
+    ctx.restore();
   }
 })
