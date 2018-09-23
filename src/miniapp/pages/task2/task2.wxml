@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="canvas-container">
+    <canvas class="canvas" canvas-id="task2"></canvas>
+  </view>
+</view>

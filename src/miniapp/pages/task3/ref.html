@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>hangge.com</title>
+  <style>
+    canvas {
+      border: 6px double black;
+      background: white;
+    }
+
+    img {
+      display: none;
+    }
+
+    button {
+      padding: 3px;
+    }
+  </style>
+  <script>
+    var canvas;
+    var context;
+
+    // 记录笑脸图标的当前位置
+    var x = 0;
+    var y = 0;
+
+    // 记录笑脸在x轴和y轴方向上每一帧要移动多少像素
+    var dx = 0;
+    var dy = 0;
+
+    window.onload = function() {
+      // 设置画布
+      canvas = document.getElementById("canvas");
+      context = canvas.getContext("2d");
+
+      // 绘制迷宫背景
+      drawMaze('http://www.hangge.com/blog_uploads/201602/2016022313460193716.png', 5, 5);
+
+      // 当用户按下键盘上的键时，运行processKey()函数
+      window.onkeydown = processKey;
+    };
+
+
+    // timer引用，这样重新加载迷宫的时候可以很方便地停止绘制
+    var timer;
+
+    function drawMaze(mazeFile, startingX, startingY) {
+      // 先停止绘制
+      clearTimeout(timer);
+
+      // 停止笑脸
+      dx = 0;
+      dy = 0;
+
+      // 加载迷宫图片
+      var imgMaze = new Image();
+      imgMaze.onload = function() {
+        // 调整画布大小以适应迷宫图片
+        canvas.width = imgMaze.width;
+        canvas.height = imgMaze.height;
+
+        // 绘制迷宫
+        context.drawImage(imgMaze, 0,0);
+
+        // 绘制笑脸
+        x = startingX;
+        y = startingY;
+
+        var imgFace = document.getElementById("face");
+        context.drawImage(imgFace, x, y);
+        context.stroke();
+
+        // 10毫秒后绘制下一帧
+        timer = setTimeout(drawFrame, 10);
+      };
+      imgMaze.src = mazeFile;
+    }
+
+
+    function processKey(e) {
+      // 如果笑脸在移动，停止
+      dx = 0;
+      dy = 0;
+
+      // 按下了向上键，向上移动
+      if (e.keyCode == 38) {
+        dy = -1;
+      }
+
+      // 按下了向下键，向下移动
+      if (e.keyCode == 40) {
+        dy = 1;
+      }
+
+      // 按下了向左键，向左移动
+      if (e.keyCode == 37) {
+        dx = -1;
+      }
+
+      // 按下了向右键，向右移动
+      if (e.keyCode == 39) {
+        dx = 1;
+      }
+    }
+
+    function checkForCollision() {
+      // 取得笑脸所在的像素块，再稍微扩展一点
+      var imgData = context.getImageData(x-1, y-1, 15+2, 15+2);
+      var pixels = imgData.data;
+
+      // 检测其中的像素
+      for (var i = 0; n = pixels.length, i < n; i += 4) {
+        var red = pixels[i];
+        var green = pixels[i+1];
+        var blue = pixels[i+2];
+        var alpha = pixels[i+3];
+
+        // 检测黑色的墙（如果检测到，说明撞墙了）
+        if (red == 0 && green == 0 && blue == 0) {
+          return true;
+        }
+        // 检测灰色的边（如果检测到，说明撞墙了）
+        if (red == 169 && green == 169 && blue == 169) {
+          return true;
+        }
+      }
+      // 没有撞墙
+      return false;
+    }
+
+
+    function drawFrame() {
+      // 检测笑脸是否正在哪个方向上移动，如果不是，则什么也不做。
+      if (dx != 0 || dy != 0) {
+        // 在笑脸当前位置绘制一块黄色背景（表示移动痕迹），然后把笑脸移到下一个位置
+        context.beginPath();
+        context.fillStyle = "rgb(254,244,207)";
+        context.rect(x, y, 15, 15);
+        context.fill()
+
+        // 增大位置值
+        x += dx;
+        y += dy;
+
+        // 碰撞检测（撞墙的话笑脸需要放回上一个位置并停止移动）
+        if (checkForCollision()) {
+          x -= dx;
+          y -= dy;
+          dx = 0;
+          dy = 0;
+        }
+
+        // 这里可以绘制笑脸
+        var imgFace = document.getElementById("face");
+        context.drawImage(imgFace, x, y);
+
+        // 检测笑脸是否已经到达迷宫底部，是的话提示成功
+        if (y > (canvas.height - 17)) {
+          alert("You win!");
+          return;
+        }
+      }
+
+      // 10毫秒后绘制下一正
+      timer = setTimeout(drawFrame, 10);
+    }
+
+    function loadEasy() {
+      drawMaze('http://www.hangge.com/blog_uploads/201602/2016022313460193716.png', 5, 5);
+    }
+
+    function loadHard() {
+      drawMaze('http://www.hangge.com/blog_uploads/201602/2016022313455480577.png', 268, 5);
+    }
+
+  </script>
+</head>
+
+<body>
+<canvas id="canvas">
+</canvas>
+<div>
+  <button onclick="loadHard()">加载困难迷宫</button>
+  <button onclick="loadEasy()">加载简单迷宫</button>
+</div>
+
+<img id="face" src="http://www.hangge.com/blog_uploads/201602/2016022313454739977.png">
+</body>
+</html>
+
+原文出自：www.hangge.com  转载请保留原文链接：http://www.hangge.com/blog/cache/detail_1065.html

@@ -3,7 +3,11 @@
     "pages/index/index",
     "pages/task1/task1",
     "pages/auth/auth",
-    "pages/task4/task4"
+    "pages/task4/task4",
+    "pages/task3/task3",
+    "pages/task2/task2",
+    "pages/task5/task5",
+    "pages/task6/task6"
   ],
   "window": {
     "backgroundTextStyle": "light",

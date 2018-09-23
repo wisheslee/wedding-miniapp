@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -45,7 +45,13 @@
 				{
 					"id": -1,
 					"name": "task4",
-					"pathName": "pages/task4/task4"
+					"pathName": "pages/task4/task4",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "task3",
+					"pathName": "pages/task3/task3"
 				}
 			]
 		}
