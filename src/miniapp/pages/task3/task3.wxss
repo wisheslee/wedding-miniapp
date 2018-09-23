@@ -1,1 +1,24 @@
-/* pages/task3/task3.wxss */
+page {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-container {
+  width: 375px;
+  height: 375px;
+}
+
+.canvas {
+  width: 375px;
+  height: 375px;
+}
+

@@ -1,2 +1,10 @@
-<!--pages/task3/task3.wxml-->
-<text>pages/task3/task3.wxml</text>
+<view class="container">
+  <view class="canvas-container">
+    <view>
+      {{score}}
+    </view>
+    <canvas class="canvas" canvas-id="task3"
+            bindtouchstart="handleTouchstart" bindtouchmove="handleTouchmove" bindtouchend="handleTouchend">
+    </canvas>
+  </view>
+</view>
