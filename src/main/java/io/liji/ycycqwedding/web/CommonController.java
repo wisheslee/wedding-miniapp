@@ -67,8 +67,11 @@ public class CommonController {
 
     @PostMapping(value = "/user")
     public JsonResponse updateUser(@RequestBody User user) {
-        if (Strings.isNullOrEmpty(user.getOpenid()))
+        log.info("/user", user);
+        if (Strings.isNullOrEmpty(user.getOpenid())) {
+            log.error("openid不正确");
             return JsonResponse.create().setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode()).setMsg("openid不正确");
+        }
         user.setOpenid(OpenidUtil.realOpenid(user.getOpenid()));
         userService.updateInfo(user);
         return JsonResponse.create();
@@ -88,6 +91,12 @@ public class CommonController {
 
     @PostMapping(value = "/update_lock_status")
     public JsonResponse updateLockStatus(@RequestBody TaskStatusVO vo) {
+        log.info("update_lock_status", vo);
+        vo.setOpenid(OpenidUtil.realOpenid(vo.getOpenid()));
+        if (Strings.isNullOrEmpty(vo.getOpenid())) {
+            log.error("openid不正确");
+            return JsonResponse.create();
+        }
         taskService.updateLockStatus(vo);
         return JsonResponse.create();
     }
@@ -102,9 +111,21 @@ public class CommonController {
         return JsonResponse.create().setData(taskList);
     }
 
+    @PostMapping(value = "/update_reward_status")
+    public JsonResponse updateRewardStatus(@RequestBody User user) {
+        log.info("/update_reward_stauts", user);
+        if (Strings.isNullOrEmpty(user.getOpenid())) {
+            log.error("openid不正确");
+            return JsonResponse.create().setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode()).setMsg("openid不正确");
+        }
+        user.setOpenid(OpenidUtil.realOpenid(user.getOpenid()));
+        userService.updateRewardStatus(user.getOpenid());
+        return JsonResponse.create();
+    }
+
     @PostMapping(value = "/errors")
     public JsonResponse errors(@RequestBody JSONObject object) {
-        log.info("出错啦", JSON.toJSONString(object));
+        log.error("出错啦", JSON.toJSONString(object));
         return JsonResponse.create();
     }
 }
