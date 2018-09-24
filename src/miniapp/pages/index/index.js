@@ -26,7 +26,11 @@ Page({
       ""
     ]
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    if (options && options.taskId) {
+      this.updateLockStatus(taskId);
+    }
+    console.log(options);
     wx.showLoading({
       title: "加载中"
     });
@@ -52,20 +56,41 @@ Page({
     this.getCompleteUser();
   },
   click(event) {
-    const index = event.currentTarget.dataset.index;
-    switch(index){
-      case 0:
-        wx.navigateTo({
-          url: '/pages/task1/task1',
-        })
-        break;
-      default:
-        wx.showToast({
-          title: '请先扫对应二维码',
-          icon: "none",
-          duration: 2000
-        })
+    const taskId = event.currentTarget.dataset.taskId;
+    const lockStatus = event.currentTarget.dataset.lockstatus;
+    console.log(111, lockStatus);
+    if (lockStatus == 1) {
+      wx.showToast({
+              title: '请先扫对应二维码',
+              icon: "none",
+              duration: 2000
+            })
     }
+    return;
+    if (lockStatus == 0) {
+      wx.navigateTo({
+          url: `/pages/task${taskId}/task${taskId}`,
+      })
+    }
+  },
+  updateLockStatus(taskId) {
+    wx.showLoading({
+      title: '加载中',
+    });
+    wx.request({
+      url: app.globalData.url + "/update_lock_status",
+      method: "POST",
+      data: {
+        openid: app.globalData.userInfo.openid,
+        taskId: taskId
+      },
+      success: res =>{
+        this.getTaskList();
+      },
+      complete() {
+        wx.hideLoading();
+      }
+    })
   },
   showMemory(event) {
     const index = event.currentTarget.dataset.index;

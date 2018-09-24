@@ -11,10 +11,10 @@
   </view>
   <view class='image-container sub-container'>
     <view wx:for="{{taskList}}" wx:key="{{item.id}}">
-      <view wx:if="{{item.status === 0}}" class='image-box' data-index="{{index}}" bindtap="click">
+      <view wx:if="{{item.status === 0}}" class='image-box' data-index="{{item.taskId}}" data-lockstatus="{{item.lockStatus}}" bindtap="click">
         <image class='pic' mode='aspectFill' src='{{item.img}}'></image>
-        <image wx:if="{{index === 0 }}" class='icon' src='/img/pointer.png'></image>
-        <image wx:if="{{index !== 0 }}" class='icon' src='/img/lock.png'></image>
+        <image wx:if="{{item.lockStatus === 0 }}" class='icon' src='/img/pointer.png'></image>
+        <image wx:if="{{item.lockStatus === 1 }}" class='icon' src='/img/lock.png'></image>
       </view>
       <view wx:if="{{item.status === 1}}" class='image-box' data-index="{{index}}" bindtap="showMemory">
         <image class='full-pic' mode='aspectFill' src='{{item.img}}'></image>
@@ -35,7 +35,10 @@
     </view>
     <view class="complete-person" wx:for="{{completeList}}" wx:key="{{item.openid}}">
       <text>{{item.name}}</text>
-      <text>{{item.taskStrTime}}已收集{{item.taskList.length}}张</text>
+      <text>
+        {{item.taskStrTime}}已收集{{item.taskList.length}}张
+        <text wx:if="{{item.rewardStatus === 1}}">（已兑奖）</text>
+      </text>
     </view>
   </view>
 </scroll-view>

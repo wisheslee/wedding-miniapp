@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -57,7 +57,22 @@
 				{
 					"id": -1,
 					"name": "task2",
-					"pathName": "pages/task2/task2"
+					"pathName": "pages/task2/task2",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "ma1",
+					"pathName": "pages/index/index",
+					"query": "task=1",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "ma2",
+					"pathName": "pages/index/index",
+					"query": "task=2",
+					"scene": "1011"
 				}
 			]
 		}

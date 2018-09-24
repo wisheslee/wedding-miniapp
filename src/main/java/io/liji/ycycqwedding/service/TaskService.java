@@ -71,4 +71,5 @@ public class TaskService {
     public void updateLockStatus(TaskStatusVO vo) {
         taskMapper.unlockStatus(vo.getOpenid(), vo.getTaskId());
     }
+
 }
