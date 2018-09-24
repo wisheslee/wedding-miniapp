@@ -15,6 +15,7 @@ public class Task {
     private String openid;
     private Integer taskId;
     private Integer status = TaskStatusEnum.UNCOMPLETE.getCode();
+    private Integer lockStatus;
     private String extra;
     private boolean deleted = false;
     private Date createTime;

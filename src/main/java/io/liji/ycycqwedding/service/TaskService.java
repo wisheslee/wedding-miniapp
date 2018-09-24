@@ -1,6 +1,7 @@
 package io.liji.ycycqwedding.service;
 
 import com.google.common.base.Strings;
+import io.liji.ycycqwedding.constants.TaskLockStatus;
 import io.liji.ycycqwedding.dao.mapper.TaskMapper;
 import io.liji.ycycqwedding.model.Task;
 import io.liji.ycycqwedding.utils.ListUtils;
@@ -25,6 +26,11 @@ public class TaskService {
             Task task = new Task();
             task.setOpenid(openid);
             task.setTaskId(i);
+            if (i == 1) {
+                task.setLockStatus(TaskLockStatus.UNLOCK.getCode());
+            } else {
+                task.setLockStatus(TaskLockStatus.LOCK.getCode());
+            }
             this.createTask(task);
         }
     }
