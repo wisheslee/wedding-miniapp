@@ -124,8 +124,8 @@ public class CommonController {
     }
 
     @PostMapping(value = "/errors")
-    public JsonResponse errors(@RequestBody JSONObject object) {
-        log.error("出错啦", JSON.toJSONString(object));
+    public JsonResponse errors(@RequestBody String e) {
+        log.error("出错啦",e);
         return JsonResponse.create();
     }
 }
