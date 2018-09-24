@@ -11,7 +11,7 @@
   </view>
   <view class='image-container sub-container'>
     <view wx:for="{{taskList}}" wx:key="{{item.id}}">
-      <view wx:if="{{item.status === 0}}" class='image-box' data-index="{{item.taskId}}" data-lockstatus="{{item.lockStatus}}" bindtap="click">
+      <view wx:if="{{item.status === 0}}" class='image-box' data-taskid="{{item.taskId}}" data-lockstatus="{{item.lockStatus}}" bindtap="click">
         <image class='pic' mode='aspectFill' src='{{item.img}}'></image>
         <image wx:if="{{item.lockStatus === 0 }}" class='icon' src='/img/pointer.png'></image>
         <image wx:if="{{item.lockStatus === 1 }}" class='icon' src='/img/lock.png'></image>

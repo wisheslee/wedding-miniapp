@@ -9,7 +9,7 @@ Page({
     memoryText: "",
     memoryImage: "",
     completeList: [],
-    taskList:[],
+    taskList: [],
     imageList: ["https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image0.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image1.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image2.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
@@ -17,7 +17,7 @@ Page({
       "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image4.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
       "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image5.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
     ],
-    textList:[
+    textList: [
       "2016年9月13日，是我们两个月前约定的领证日期，我们买了新衣服、精心打扮了一番，专门到川大拍了结婚证照。当我们悠闲的到锦江区准备领证时，发现我们都忘带身份证！于是急忙赶回家拿了身份证，飞奔到金牛区民政局赶在工作人员下班之前领到了我们的红本本，开心~",
       "",
       "",
@@ -28,14 +28,14 @@ Page({
   },
   onLoad: function (options) {
     if (options && options.taskId) {
-      this.updateLockStatus(taskId);
+      this.updateLockStatus(options.taskId);
     }
     console.log(options);
     wx.showLoading({
       title: "加载中"
     });
     const timer = setInterval(() => {
-      if(app.globalData.userInfo) {
+      if (app.globalData.userInfo) {
         let taskList = JSON.parse(JSON.stringify(app.globalData.userInfo.taskList));
         taskList.forEach(task => {
           task.img = this.data.imageList[task.taskId - 1];
@@ -47,29 +47,30 @@ Page({
         clearInterval(timer);
         wx.hideLoading();
       }
-    },50);
+    }, 50);
   },
   onShow() {
-    if(app.globalData.userInfo.openid) {
+    if (app.globalData.userInfo.openid) {
       this.getTaskList();
     }
     this.getCompleteUser();
   },
   click(event) {
-    const taskId = event.currentTarget.dataset.taskId;
+    const taskId = event.currentTarget.dataset.taskid;
     const lockStatus = event.currentTarget.dataset.lockstatus;
     console.log(111, lockStatus);
     if (lockStatus == 1) {
       wx.showToast({
-              title: '请先扫对应二维码',
-              icon: "none",
-              duration: 2000
-            })
+        title: '请先扫对应二维码',
+        icon: "none",
+        duration: 2000
+      })
+      return;
     }
-    return;
+
     if (lockStatus == 0) {
       wx.navigateTo({
-          url: `/pages/task${taskId}/task${taskId}`,
+        url: `/pages/task${taskId}/task${taskId}`,
       })
     }
   },
@@ -77,20 +78,25 @@ Page({
     wx.showLoading({
       title: '加载中',
     });
-    wx.request({
-      url: app.globalData.url + "/update_lock_status",
-      method: "POST",
-      data: {
-        openid: app.globalData.userInfo.openid,
-        taskId: taskId
-      },
-      success: res =>{
-        this.getTaskList();
-      },
-      complete() {
-        wx.hideLoading();
+    const timer = setInterval(() => {
+      if (app.globalData.userInfo.openid) {
+        clearInterval(timer);
+        wx.request({
+          url: app.globalData.url + "/update_lock_status",
+          method: "POST",
+          data: {
+            openid: app.globalData.userInfo.openid,
+            taskId: taskId,
+          },
+          success: res => {
+            this.getTaskList();
+          },
+          complete() {
+            wx.hideLoading();
+          }
+        })
       }
-    })
+    }, 50);
   },
   showMemory(event) {
     const index = event.currentTarget.dataset.index;
@@ -109,7 +115,7 @@ Page({
     wx.request({
       url: app.globalData.url + "/complete_list",
       success: (res) => {
-        if(res.data.data) {
+        if (res.data.data) {
           res.data.data.forEach(user => {
             user.taskStrTime = moment(user.taskUpdateTime).format("YYYYMMDD HH:mm");
           })
@@ -130,15 +136,15 @@ Page({
       data: {
         openid: app.globalData.userInfo.openid
       },
-      success: res =>{
-        if(res.data.data && res.data.data.length) {
+      success: res => {
+        if (res.data.data && res.data.data.length) {
           res.data.data.forEach(task => {
             task.img = this.data.imageList[task.taskId - 1];
           })
           this.setData({
             taskList: res.data.data
           });
-        }   
+        }
       },
       complete() {
         wx.hideLoading();
@@ -148,7 +154,7 @@ Page({
   getReward(event) {
     const category = event.currentTarget.dataset.category;
     console.log(category)
-    if(this.data.userInfo.completeStatus === 0) {
+    if (this.data.userInfo.completeStatus === 0) {
       wx.showToast({
         title: '集齐6张照片才能兑奖哦',
         icon: 'none',
