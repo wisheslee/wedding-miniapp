@@ -5,6 +5,12 @@ const dev = "http://localhost:2222"
 App({
   onShow: function () {
     this.checkUpdate();
+    this.checkAuth();
+    if(!wx.getStorageSync("userInfo")) {
+      this.login();
+    }
+  },
+  login() {
     wx.login({
       success: res => {
         if (res.code) {
@@ -17,30 +23,6 @@ App({
             success: (res) => {
               wx.setStorageSync("userInfo", res.data.data);
               this.globalData.userInfo = res.data.data;
-              //检查权限
-              wx.getSetting({
-                success: (res) => {
-                  if (res.authSetting['scope.userInfo']) {
-                    this.globalData.hasAuth = true;
-                    if (!this.globalData.userInfo.name) {
-                      wx.getUserInfo({
-                        withCredentials: false,
-                        lang: "zh_CN",
-                        success: res => {
-                          console.log("getUserInfo", res)
-                          this.globalData.userInfo.name = res.userInfo.nickName;
-                          this.globalData.userInfo.avatar = res.userInfo.avatarUrl;
-                          wx.request({
-                            url: this.globalData.url + "/user",
-                            method: "POST",
-                            data: this.globalData.userInfo
-                          })
-                        }
-                      })
-                    }
-                  }
-                }
-              })
             }
           })
         }
@@ -60,6 +42,16 @@ App({
           }
         }
       })
+    })
+  },
+  checkAuth() {
+    //检查权限
+    wx.getSetting({
+      success: (res) => {
+        if (res.authSetting['scope.userInfo']) {
+          this.globalData.hasAuth = true;
+        }
+      }
     })
   },
   onError(e) {
