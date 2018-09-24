@@ -15,4 +15,4 @@ build-test:
   - test
   stage: build
   script:
-  - sh deploy.sh
+  - sh deploy-test.sh
