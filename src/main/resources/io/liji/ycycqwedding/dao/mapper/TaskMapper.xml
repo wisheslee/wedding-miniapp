@@ -28,6 +28,13 @@
         </foreach>
     </select>
 
+    <update id="unlockStatus">
+        update task
+        set lock_status = 0
+        where task_id = #{taskId} and openid = #{openid}
+    </update>
+
+
     <update id="deleteTaskByTaskId">
         update task
         set deleted = 1

@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import io.liji.ycycqwedding.constants.TaskLockStatus;
 import io.liji.ycycqwedding.dao.mapper.TaskMapper;
 import io.liji.ycycqwedding.model.Task;
+import io.liji.ycycqwedding.model.vo.TaskStatusVO;
 import io.liji.ycycqwedding.utils.ListUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,9 @@ public class TaskService {
 
     void deleteTaskByOpenidAndTaskId(String openid, int taskId) {
         taskMapper.deleteTaskByOpenidAndTaskId(openid, taskId);
+    }
+
+    public void updateLockStatus(TaskStatusVO vo) {
+        taskMapper.unlockStatus(vo.getOpenid(), vo.getTaskId());
     }
 }

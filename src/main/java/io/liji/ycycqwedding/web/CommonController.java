@@ -86,6 +86,12 @@ public class CommonController {
         return JsonResponse.create();
     }
 
+    @PostMapping(value = "/update_lock_status")
+    public JsonResponse updateLockStatus(@RequestBody TaskStatusVO vo) {
+        taskService.updateLockStatus(vo);
+        return JsonResponse.create();
+    }
+
     @PostMapping(value = "/get_task_list")
     public JsonResponse getTaskList(@RequestBody JSONObject jsonObject) {
         String openid = OpenidUtil.realOpenid(jsonObject.getString("openid"));
