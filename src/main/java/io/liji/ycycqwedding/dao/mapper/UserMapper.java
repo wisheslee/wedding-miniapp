@@ -16,7 +16,7 @@ public interface UserMapper {
 
     void updateCompleteStatus(@Param("openid") String openid);
 
-    void updateRewardStatus(@Param("openid") String openid);
+    void updateRewardStatus(@Param("openid") String openid, @Param("reward") String reward);
 
     void updateSessionKey(@Param("openid") String openid, @Param("sessionKey") String sessionKey);
 

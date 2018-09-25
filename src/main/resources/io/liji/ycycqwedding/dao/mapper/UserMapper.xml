@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="io.liji.ycycqwedding.dao.mapper.UserMapper">
     <sql id="selectFields">
-        openid, `name`, avatar, complete_status, reward_status, task_update_time, create_time, update_time
+        openid, `name`, avatar, complete_status, reward_status, reward, task_update_time, create_time, update_time
     </sql>
 
     <insert id="createUser">
@@ -33,7 +33,7 @@
 
     <update id="updateRewardStatus">
         update `user`
-        set reward_status = 1
+        set reward_status = 1, reward = #{reward}
         where openid = #{openid}
     </update>
 

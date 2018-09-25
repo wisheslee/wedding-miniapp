@@ -59,7 +59,9 @@ Page({
             success: (res) => {
               wx.setStorageSync("userInfo", res.data.data);
               app.globalData.userInfo = res.data.data;
-              this.data.userInfo = res.data.data;
+              this.setData({
+                userInfo: res.data.data
+              });
               this.handleTaskList(res.data.data.taskList);
               this.handleOptions(options);
             }
@@ -79,18 +81,15 @@ Page({
       url: app.globalData.url + '/user?openid=' + this.data.userInfo.openid,
       method: "get",
       success: (res) => {
-        console.log(111);
         wx.setStorageSync("userInfo", res.data.data);
         app.globalData.userInfo = res.data.data;
-        this.data.userInfo = res.data.data;
+        this.setData({
+          userInfo: res.data.data
+        });
         this.handleTaskList(res.data.data.taskList);
         this.handleOptions(options);
       },
-      fail(e) {
-        console.log(333, e);
-      },
       complete() {
-        console.log(22);
         wx.hideLoading();
       }
     })
@@ -221,7 +220,7 @@ Page({
               title: '加载中',
             });
             let user = this.data.userInfo;
-            user.extra = {"reward": category};
+            user.reward = category;
             wx.request({
               url: app.globalData.url + "/update_reward_status",
               method: "POST",
@@ -233,6 +232,11 @@ Page({
                     icon: "success",
                     duration: 2000
                   });
+                  setTimeout(() => {
+                    this.updateUserInfo(this.data.userInfo.openid, {});
+                    this.getCompleteUser()
+                  }, 2000);
+
                 } else {
                   wx.showToast({
                     title: res.data.msg,

@@ -21,6 +21,7 @@ public class User {
     private Integer completeStatus = UserCompleteStatusEnum.UNCOMPLETE.getCode();
     //完成后是否领取奖励
     private Integer rewardStatus = UserRewardStatusEnum.UNREWARD.getCode();
+    private String reward;
     private Date taskUpdateTime;
     private Date createTime;
     private Date updateTime;

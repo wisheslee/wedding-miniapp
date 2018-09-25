@@ -169,10 +169,10 @@ public class UserService {
      * 标记用户为已领取奖励
      * @param openid
      */
-    public void updateRewardStatus(String openid) {
-        if (Strings.isNullOrEmpty(openid))
+    public void updateRewardStatus(User user) {
+        if (Strings.isNullOrEmpty(user.getOpenid()))
             return;
-        userMapper.updateRewardStatus(openid);
+        userMapper.updateRewardStatus(user.getOpenid(), user.getReward());
     }
 
     /**

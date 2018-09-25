@@ -3,6 +3,7 @@ package io.liji.ycycqwedding.web;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import io.liji.ycycqwedding.constants.JsonResponseStatusEnum;
+import io.liji.ycycqwedding.constants.UserRewardStatusEnum;
 import io.liji.ycycqwedding.model.JsonResponse;
 import io.liji.ycycqwedding.model.User;
 import io.liji.ycycqwedding.service.TaskService;
@@ -66,6 +67,11 @@ public class UserController {
         return JsonResponse.create().setData(user);
     }
 
+    /**
+     * todo 分布式锁
+     * @param user
+     * @return
+     */
     @PostMapping(value = "/update_reward_status")
     public synchronized JsonResponse updateRewardStatus(@RequestBody User user) {
         log.info("/update_reward_stauts", user);
@@ -73,12 +79,15 @@ public class UserController {
             log.error("openid不正确");
             return JsonResponse.create().setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode()).setMsg("openid不正确");
         }
+        if (UserRewardStatusEnum.REWARDED.getCode().equals(user.getRewardStatus())) {
+            return JsonResponse.create().setStatus(400).setMsg("不能重复兑换");
+        }
         user.setOpenid(OpenidUtil.realOpenid(user.getOpenid()));
         List<User> completedUserList = userService.getCompletedUser();
         if (completedUserList.size() >= 10) {
             return JsonResponse.create().setStatus(400).setMsg("很遗憾，你的速度太慢了，名额已满");
         }
-        userService.updateRewardStatus(user.getOpenid());
+        userService.updateRewardStatus(user);
         return JsonResponse.create();
     }
 }
