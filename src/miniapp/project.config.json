@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -12,7 +12,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.5",
+	"libVersion": "2.3.0",
 	"appid": "wxde61fb45f6d68a5f",
 	"projectname": "ycycqwedding",
 	"isGameTourist": false,

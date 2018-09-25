@@ -77,10 +77,9 @@
 
 .complete-container {
   margin-top: 30rpx;
-
 }
 
-.complete-container .complete-person {
+.complete-person {
   display: flex;
   justify-content: space-between;
   height: 60rpx;

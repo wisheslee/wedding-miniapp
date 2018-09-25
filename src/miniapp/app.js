@@ -43,7 +43,7 @@ App({
   },
   globalData: {
     userInfo: "",
-    url: dev,
+    url: test,
     hasAuth: false
   }
 });
