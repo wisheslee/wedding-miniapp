@@ -6,28 +6,6 @@ App({
   onShow: function () {
     this.checkUpdate();
     this.checkAuth();
-    if(!wx.getStorageSync("userInfo")) {
-      this.login();
-    }
-  },
-  login() {
-    wx.login({
-      success: res => {
-        if (res.code) {
-          wx.request({
-            url: this.globalData.url + '/login',
-            method: "POST",
-            data: {
-              code: res.code
-            },
-            success: (res) => {
-              wx.setStorageSync("userInfo", res.data.data);
-              this.globalData.userInfo = res.data.data;
-            }
-          })
-        }
-      }
-    });
   },
   checkUpdate() {
     const updateManager = wx.getUpdateManager();

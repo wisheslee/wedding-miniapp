@@ -11,6 +11,7 @@ import io.liji.ycycqwedding.model.JsonResponse;
 import io.liji.ycycqwedding.model.Task;
 import io.liji.ycycqwedding.model.User;
 import io.liji.ycycqwedding.utils.ListUtils;
+import io.liji.ycycqwedding.utils.OpenidUtil;
 import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -40,6 +41,11 @@ public class UserService {
     @Resource
     private WechatApiConstants wechatApiConstants;
 
+    /**
+     * 对没有登录过的用户进行登录，主要是获取openid建立用户，并创建6个默认任务
+     * @param code
+     * @return
+     */
     public JsonResponse Login(String code) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(wechatApiConstants.getOpenid(code));
@@ -70,10 +76,15 @@ public class UserService {
         }
         user.setTaskList(taskService.getTasksByOpenid(openid));
         //混淆openid，传回前端
-        user.setOpenid("x" + openid + "l");
+        user.setOpenid(OpenidUtil.mixOpenid(openid));
         return JsonResponse.create().setData(user);
     }
 
+
+    /**
+     * 排行榜
+     * @return
+     */
     public List<User> getUsersCompleteAtLeastOne() {
         List<User> userList = userMapper.getUsersCompleteAtLeastOne();
         if(ListUtils.isNullOrEmpty(userList))
@@ -105,39 +116,69 @@ public class UserService {
         }
     }
 
+    /**
+     * 更新用户信息，目前用来授权后更新头像和昵称
+     * @param user
+     */
     public void updateInfo(User user) {
         userMapper.updateInfo(user);
     }
 
 
+    /**
+     * 创建用户
+     * @param user
+     */
     public void createUser(User user) {
         if (user == null)
             return;
         userMapper.createUser(user);
     }
 
+    /**
+     * 根据openid获取用户
+     * @param openid
+     * @return
+     */
     public User getUser(String openid) {
         if (Strings.isNullOrEmpty(openid))
             return null;
         return userMapper.getUser(openid);
     }
 
+    /**
+     * 将用户标记为完成状态，可领取奖励
+     * @param openid
+     */
     public void updateCompleteStatus(String openid) {
         if (Strings.isNullOrEmpty(openid))
             return;
         userMapper.updateCompleteStatus(openid);
     }
 
+    /**
+     * 标记用户为已领取奖励
+     * @param openid
+     */
     public void updateRewardStatus(String openid) {
         if (Strings.isNullOrEmpty(openid))
             return;
         userMapper.updateRewardStatus(openid);
     }
 
+    /**
+     * 更新sessionkey，目前没有用到sessionkey
+     * @param openid
+     * @param sesesionKey
+     */
     private void updateSesionKey(String openid, String sesesionKey) {
         userMapper.updateSessionKey(openid, sesesionKey);
     }
 
+    /**
+     * 完成一个任务时，将用户表里的最近任务完成事件更新，用作排行版的排序
+     * @param openid
+     */
     public void updateTaskUpdateTime(String openid) {
         userMapper.updateTaskUpdateTime(openid);
     }

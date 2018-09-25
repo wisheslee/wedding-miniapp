@@ -27,29 +27,84 @@ Page({
     ]
   },
   onLoad: function (options) {
-    if (options && options.taskId) {
-      this.updateLockStatus(options.taskId);
+    //更新完成列表。todo socket消息
+    //更新用户信息，获取最新的完成状态
+    console.log("options", options);
+    this.getUserInfo(options);
+  },
+  getUserInfo(options) {
+    if(!wx.getStorageSync("userInfo")) {
+      this.login(options);
+    } else {
+      this.setData({
+        userInfo: wx.getStorageSync("userInfo")
+      });
+      this.updateUserInfo(this.data.userInfo.openid, options);
     }
-    console.log(options);
+  },
+  login(options) {
     wx.showLoading({
       title: "加载中"
     });
-    const timer = setInterval(() => {
-      if (app.globalData.userInfo) {
-        let taskList = JSON.parse(JSON.stringify(app.globalData.userInfo.taskList));
-        taskList.forEach(task => {
-          task.img = this.data.imageList[task.taskId - 1];
-        })
-        this.setData({
-          userInfo: app.globalData.userInfo,
-          taskList: taskList
-        });
-        clearInterval(timer);
+    wx.login({
+      success: res => {
+        if (res.code) {
+          wx.request({
+            url: app.globalData.url + '/login',
+            method: "POST",
+            data: {
+              code: res.code
+            },
+            success: (res) => {
+              wx.setStorageSync("userInfo", res.data.data);
+              app.globalData.userInfo = res.data.data;
+              this.data.userInfo = res.data.data;
+              this.handleTaskList(res.data.data.taskList);
+              this.handleOptions(options);
+            }
+          })
+        }
+      },
+      complete() {
         wx.hideLoading();
       }
-    }, 50);
+    });
+  },
+  updateUserInfo(openid, options) {
+    wx.showLoading({
+      title: "加载中"
+    });
+    wx.login({
+      success: res => {
+        if (res.code) {
+          wx.request({
+            url: app.globalData.url + '/user?openid=' + this.data.userInfo.openid,
+            method: "get",
+            success: (res) => {
+              wx.setStorageSync("userInfo", res.data.data);
+              app.globalData.userInfo = res.data.data;
+              this.data.userInfo = res.data.data;
+              this.handleTaskList(res.data.data.taskList);
+              this.handleOptions(options);
+            }
+          })
+        }
+      },
+      complete() {
+        wx.hideLoading();
+      }
+    });
+  },
+  handleTaskList(taskList) {
+    taskList.forEach(task => {
+      task.img = this.data.imageList[task.taskId - 1];
+    });
+    this.setData({
+      taskList: taskList
+    });
   },
   onShow() {
+    //每次返回都需要拉取，
     if (app.globalData.userInfo.openid) {
       this.getTaskList();
     }
@@ -58,7 +113,6 @@ Page({
   click(event) {
     const taskId = event.currentTarget.dataset.taskid;
     const lockStatus = event.currentTarget.dataset.lockstatus;
-    console.log(111, lockStatus);
     if (lockStatus == 1) {
       wx.showToast({
         title: '请先扫对应二维码',
@@ -72,6 +126,11 @@ Page({
       wx.navigateTo({
         url: `/pages/task${taskId}/task${taskId}`,
       })
+    }
+  },
+  handleOptions(options) {
+    if (options.taskId) {
+      this.updateLockStatus(options.taskId);
     }
   },
   updateLockStatus(taskId) {

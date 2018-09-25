@@ -37,7 +37,7 @@
       <text>{{item.name}}</text>
       <text>
         {{item.taskStrTime}}已收集{{item.taskList.length}}张
-        <text wx:if="{{item.rewardStatus === 1}}">（已兑奖）</text>
+        <!--<text wx:if="{{item.rewardStatus === 1}}">（已兑奖）</text>-->
       </text>
     </view>
   </view>
