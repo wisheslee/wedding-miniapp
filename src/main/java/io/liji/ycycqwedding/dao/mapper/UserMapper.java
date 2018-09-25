@@ -28,6 +28,8 @@ public interface UserMapper {
 
     List<User> getUsersCompleteAtLeastOne();
 
+    List<User> getCompletedUser();
+
     void updateInfo(User user);
 
 

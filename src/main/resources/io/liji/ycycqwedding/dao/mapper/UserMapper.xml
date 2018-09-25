@@ -56,4 +56,9 @@
         where task_update_time is not null
     </select>
 
+    <select id="getCompletedUser" resultType="io.liji.ycycqwedding.model.User">
+        select <include refid="selectFields"/> from `user`
+        where complete_status = 1
+    </select>
+
 </mapper>

@@ -146,6 +146,15 @@ public class UserService {
         return userMapper.getUser(openid);
     }
 
+
+    public List<User> getCompletedUser() {
+        List<User> userList = userMapper.getCompletedUser();
+        if (ListUtils.isNullOrEmpty(userList)) {
+            return new ArrayList<>();
+        } else {
+            return userList;
+        }
+    }
     /**
      * 将用户标记为完成状态，可领取奖励
      * @param openid

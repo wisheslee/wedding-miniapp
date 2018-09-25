@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author jili
  * @date 2018/9/25
@@ -65,13 +67,17 @@ public class UserController {
     }
 
     @PostMapping(value = "/update_reward_status")
-    public JsonResponse updateRewardStatus(@RequestBody User user) {
+    public synchronized JsonResponse updateRewardStatus(@RequestBody User user) {
         log.info("/update_reward_stauts", user);
         if (Strings.isNullOrEmpty(user.getOpenid())) {
             log.error("openid不正确");
             return JsonResponse.create().setStatus(JsonResponseStatusEnum.YOUFUCKUP.getCode()).setMsg("openid不正确");
         }
         user.setOpenid(OpenidUtil.realOpenid(user.getOpenid()));
+        List<User> completedUserList = userService.getCompletedUser();
+        if (completedUserList.size() >= 10) {
+            return JsonResponse.create().setStatus(400).setMsg("很遗憾，你的速度太慢了，名额已满");
+        }
         userService.updateRewardStatus(user.getOpenid());
         return JsonResponse.create();
     }

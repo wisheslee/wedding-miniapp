@@ -75,26 +75,25 @@ Page({
     wx.showLoading({
       title: "加载中"
     });
-    wx.login({
-      success: res => {
-        if (res.code) {
-          wx.request({
-            url: app.globalData.url + '/user?openid=' + this.data.userInfo.openid,
-            method: "get",
-            success: (res) => {
-              wx.setStorageSync("userInfo", res.data.data);
-              app.globalData.userInfo = res.data.data;
-              this.data.userInfo = res.data.data;
-              this.handleTaskList(res.data.data.taskList);
-              this.handleOptions(options);
-            }
-          })
-        }
+    wx.request({
+      url: app.globalData.url + '/user?openid=' + this.data.userInfo.openid,
+      method: "get",
+      success: (res) => {
+        console.log(111);
+        wx.setStorageSync("userInfo", res.data.data);
+        app.globalData.userInfo = res.data.data;
+        this.data.userInfo = res.data.data;
+        this.handleTaskList(res.data.data.taskList);
+        this.handleOptions(options);
+      },
+      fail(e) {
+        console.log(333, e);
       },
       complete() {
+        console.log(22);
         wx.hideLoading();
       }
-    });
+    })
   },
   handleTaskList(taskList) {
     taskList.forEach(task => {
@@ -206,12 +205,54 @@ Page({
   },
   getReward(event) {
     const category = event.currentTarget.dataset.category;
-    console.log(category)
     if (this.data.userInfo.completeStatus === 0) {
       wx.showToast({
         title: '集齐6张照片才能兑奖哦',
         icon: 'none',
         duration: 2000
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: `确认兑换${category}吗？`,
+        success: res => {
+          if (res.confirm) {
+            wx.showLoading({
+              title: '加载中',
+            });
+            let user = this.data.userInfo;
+            user.extra = {"reward": category};
+            wx.request({
+              url: app.globalData.url + "/update_reward_status",
+              method: "POST",
+              data: user,
+              success: (res) => {
+                if (res.data.status === 200) {
+                  wx.showToast({
+                    title: '找新郎兑现',
+                    icon: "success",
+                    duration: 2000
+                  });
+                } else {
+                  wx.showToast({
+                    title: res.data.msg,
+                    icon: "none",
+                    duration: 4000
+                  });
+                }
+              },
+              fail() {
+                wx.showToast({
+                  title: "请重试",
+                  duration: 2000
+                });
+              },
+              complete() {
+                wx.hideLoading();
+              }
+            })
+          }
+        }
       })
     }
   },
