@@ -14,12 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author jili
  * @date 2018/9/25
  */
-@Controller
+@RestController
 @Slf4j
 public class UserController {
 
@@ -60,7 +61,7 @@ public class UserController {
         User user = userService.getUser(openid);
         user.setTaskList(taskService.getTasksByOpenid(openid));
         user.setOpenid(OpenidUtil.mixOpenid(user.getOpenid()));
-        return JsonResponse.create();
+        return JsonResponse.create().setData(user);
     }
 
     @PostMapping(value = "/update_reward_status")

@@ -31,9 +31,10 @@ Page({
     //更新用户信息，获取最新的完成状态
     console.log("options", options);
     this.getUserInfo(options);
+    this.getCompleteUser();
   },
   getUserInfo(options) {
-    if(!wx.getStorageSync("userInfo")) {
+    if (!wx.getStorageSync("userInfo")) {
       this.login(options);
     } else {
       this.setData({
@@ -104,11 +105,6 @@ Page({
     });
   },
   onShow() {
-    //每次返回都需要拉取，
-    if (app.globalData.userInfo.openid) {
-      this.getTaskList();
-    }
-    this.getCompleteUser();
   },
   click(event) {
     const taskId = event.currentTarget.dataset.taskid;
@@ -137,25 +133,23 @@ Page({
     wx.showLoading({
       title: '加载中',
     });
-    const timer = setInterval(() => {
-      if (app.globalData.userInfo.openid) {
-        clearInterval(timer);
-        wx.request({
-          url: app.globalData.url + "/update_lock_status",
-          method: "POST",
-          data: {
-            openid: app.globalData.userInfo.openid,
-            taskId: taskId,
-          },
-          success: res => {
-            this.getTaskList();
-          },
-          complete() {
-            wx.hideLoading();
-          }
+    wx.request({
+      url: app.globalData.url + "/update_lock_status",
+      method: "POST",
+      data: {
+        openid: app.globalData.userInfo.openid,
+        taskId: taskId,
+      },
+      success: res => {
+        this.getTaskList();
+        wx.showToast({
+          title: "解锁新任务！"
         })
+      },
+      complete() {
+        wx.hideLoading();
       }
-    }, 50);
+    })
   },
   showMemory(event) {
     const index = event.currentTarget.dataset.index;

@@ -36,12 +36,14 @@ App({
     wx.request({
       url: this.globalData.url + "/errors",
       method: "POST",
-      data: e
+      data: {
+        error: e
+      }
     })
   },
   globalData: {
     userInfo: "",
-    url: test,
+    url: dev,
     hasAuth: false
   }
 });

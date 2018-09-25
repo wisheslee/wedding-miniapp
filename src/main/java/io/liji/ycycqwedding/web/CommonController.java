@@ -43,10 +43,6 @@ public class CommonController {
     @Autowired
     private TaskService taskService;
 
-
-
-
-
     @GetMapping(value = "hello")
     public String hello() {
         log.info("测试接口");
@@ -54,8 +50,8 @@ public class CommonController {
     }
 
     @PostMapping(value = "/errors")
-    public JsonResponse errors(@RequestBody String e) {
-        log.error("出错啦",e);
+    public JsonResponse errors(@RequestBody JSONObject obj) {
+        log.error("出错啦",obj.getString("error"));
         return JsonResponse.create();
     }
 }
