@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="io.liji.ycycqwedding.dao.mapper.UserMapper">
     <sql id="selectFields">
-        openid, `name`, avatar, complete_status, reward_status, reward, task_update_time, create_time, update_time
+        openid, `name`, avatar, complete_status, reward_status, reward, words, task_update_time, create_time, update_time
     </sql>
 
     <insert id="createUser">
@@ -40,7 +40,7 @@
     <update id="updateInfo">
         update `user`
         set `name` = #{name}, avatar = #{avatar}
-        where openid =#{openid}
+        where openid = #{openid}
     </update>
 
     <select id="getUser" resultType="io.liji.ycycqwedding.model.User">
@@ -60,5 +60,11 @@
         select <include refid="selectFields"/> from `user`
         where complete_status = 1
     </select>
+
+    <update id="updateWords">
+        update `user`
+        set words = #{words}
+        where openid = #{openid}
+    </update>
 
 </mapper>

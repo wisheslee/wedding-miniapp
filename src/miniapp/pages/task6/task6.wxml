@@ -1,14 +1,17 @@
-<view class="container">
-  <view class="target">
-    <view>倒计时：{{time}}</view>
-    <view>分数：{{score}}/{{total}}</view>
+<form bindsubmit="formSubmit">
+  <van-toast id="van-toast" />
+  <view class="btn-area">
+    "哈哈哈哈哈哈哈哈"
   </view>
-  <view class="task-text-container">
-    "小芊生气了，不停的向ycy扔衣服，接住衣服吧"
+  <view class="page-section">
+    <view class="weui-cells__title">你想说什么？</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" name="answer" />
+      </view>
+    </view>
   </view>
-  <view class="canvas-container">
-    <canvas class="canvas" canvas-id="task3"
-            bindtouchstart="handleTouchstart" bindtouchmove="handleTouchmove" bindtouchend="handleTouchend">
-    </canvas>
+  <view class="btn-area">
+    <button formType="submit" type='primary' >确认</button>
   </view>
-</view>
+</form>

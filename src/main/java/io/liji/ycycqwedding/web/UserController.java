@@ -90,4 +90,16 @@ public class UserController {
         userService.updateRewardStatus(user);
         return JsonResponse.create();
     }
+
+    @PostMapping(value = "/words")
+    public JsonResponse updateWords(@RequestBody JSONObject object) {
+        log.info("/words", object);
+        String openid = object.getString("openid");
+        openid = OpenidUtil.realOpenid(openid);
+        String words = object.getString("words");
+        userService.updateWords(openid, words);
+        return JsonResponse.create();
+    }
+
+
 }

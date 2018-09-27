@@ -22,6 +22,7 @@ public class User {
     //完成后是否领取奖励
     private Integer rewardStatus = UserRewardStatusEnum.UNREWARD.getCode();
     private String reward;
+    private String words;
     private Date taskUpdateTime;
     private Date createTime;
     private Date updateTime;

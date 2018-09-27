@@ -32,5 +32,5 @@ public interface UserMapper {
 
     void updateInfo(User user);
 
-
+    void updateWords(@Param("openid") String openid, @Param("words") String words);
 }

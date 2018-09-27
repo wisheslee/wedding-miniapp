@@ -191,4 +191,12 @@ public class UserService {
     public void updateTaskUpdateTime(String openid) {
         userMapper.updateTaskUpdateTime(openid);
     }
+
+
+    /**
+     * 更新words，最后一个问题，想说的话
+     */
+    public void updateWords(String openid, String words) {
+        userMapper.updateWords(openid, words);
+    }
 }

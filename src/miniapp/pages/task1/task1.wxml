@@ -1,5 +1,4 @@
 <form bindsubmit="formSubmit">
-  <van-toast id="van-toast" />
   <view class="page-section">
     <view class="weui-cells__title">新郎姓名</view>
     <view class="weui-cells weui-cells_after-title">
