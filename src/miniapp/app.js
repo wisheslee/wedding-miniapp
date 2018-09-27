@@ -42,8 +42,8 @@ App({
     })
   },
   globalData: {
-    userInfo: "",
-    url: dev,
+    userInfo: {},
+    url: test,
     hasAuth: false
   }
 });

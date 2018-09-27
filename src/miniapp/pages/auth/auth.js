@@ -24,6 +24,7 @@ Page({
         console.log("getUserInfo", res)
         app.globalData.userInfo.name = res.userInfo.nickName;
         app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
+        wx.setStorageSync("userInfo", app.globalData.userInfo);
         wx.request({
           url: app.globalData.url + "/user",
           method: "POST",

@@ -1,15 +1,27 @@
 // pages/task4/task4.js
-let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1;
+import util from "../../utils/util";
+
+let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1, timer;
 Page({
   data: {
     list: [],
     positions: [],
     queue: [],
+    time: 10,
+    completed: false
   },
   onReady() {
+    this.init();
+  },
+  onHide() {
+    clearInterval(timer);
+  },
+  init() {
+    clearInterval(timer);
+    this.setData({
+      time: 10
+    });
     ctx = wx.createCanvasContext("task4");
-    // ctx.globalCompositeOperation = "destination-out";
-    // ctx.drawImage("../../resouces/dish.png", 0, 0, 375, 375);
     ctx.drawImage("../../resouces/dirty.png", 70, 70, 70, 70);
     ctx.drawImage("../../resouces/dirty.png", 270, 90, 80, 80);
     ctx.drawImage("../../resouces/dirty.png", 60, 240, 100, 100);
@@ -22,7 +34,26 @@ Page({
     ctx.lineWidth = radius * 2;
     ctx.fillStyle = "white";
     ctx.strokeStyle = "white";
-    // ctx.globalCompositeOperation = "destination-out";
+    timer = setInterval(() => {
+      if (this.data.time > 0) {
+        this.setData({
+          time: --this.data.time
+        });
+      } else {
+        clearInterval(timer)
+        if (!this.data.completed) {
+          wx.showModal({
+            title: '任务失败',
+            content: '是否重来？',
+            success: res => {
+              if (res.confirm) {
+                this.init();
+              }
+            }
+          })
+        }
+      }
+    }, 1000)
   },
   startHandler(e) {
     let c = this.getCoordinate(e);
@@ -87,7 +118,11 @@ Page({
       height: height,
       success(imgData) {
         let flag = imgData.data.find(item => item ===1);
-        console.log(flag);
+        console.log(1, flag);
+        if(!flag) {
+          clearInterval(timer);
+          util.completeTask(4)
+        }
       }
     })
 
@@ -99,22 +134,4 @@ Page({
       y: touch ? touch.y : 0,
     }
   },
-  drawLine(x1, y1, x2, y2) {
-    x = x1;
-    y = y1;
-    ctx.save();
-    ctx.beginPath();
-    if (arguments.length === 2) {
-      ctx.arc(x1, y1, radius, 0, 2 * Math.PI);
-      ctx.fill();
-    } else {
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.fill();
-      x = x2;
-      y = y2;
-    }
-    ctx.draw(true);
-    ctx.restore();
-  }
-})
+});
