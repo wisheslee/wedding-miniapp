@@ -11,7 +11,15 @@ Page({
   onLoad: function (options) {
   },
   formSubmit(event) {
-    const value = event.detail.value;
-
+    const words = event.detail.value.answer;
+    wx.request({
+      url: app.globalData.url + "/words",
+      method: "POST",
+      data: {
+        openid: app.globalData.userInfo.openid,
+        words
+      }
+    });
+    util.completeTask(6);
   }
-})
+});

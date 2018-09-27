@@ -7,7 +7,7 @@
     <view class="weui-cells__title">你想说什么？</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" name="answer" />
+        <input class="weui-input" focus='{{true}}' name="answer" />
       </view>
     </view>
   </view>
