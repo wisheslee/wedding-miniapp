@@ -1,10 +1,10 @@
 <!--pages/task4/task4.wxml-->
 <view class="container">
   <view class="target">
-    <view>倒计时：{{time}}</view>
-    <view></view>
-  </view>
-  <view class="text-container">
+  <view>倒计时：{{time}}</view>
+  <view></view>
+</view>
+  <view class="task-text-container">
     "要把碗洗干净了，生活才会更美好"
   </view>
   <view class="canvas-container">

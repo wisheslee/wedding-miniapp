@@ -11,10 +11,6 @@ page {
   justify-content: center;
 }
 
-.text-container {
-  margin-bottom: 40rpx;
-}
-
 .canvas-container {
   width: 375px;
   height: 375px;
@@ -26,13 +22,4 @@ page {
   width: 375px;
   height: 375px;
   z-index: 100;
-}
-
-.target {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 20px;
 }

@@ -1,3 +1,5 @@
+import util from "../../utils/util";
+
 let ctx;
 let canvasW = 375;
 let canvasH = 375;
@@ -8,30 +10,67 @@ const mDistance = 10;
 const slave = "../../resouces/people.png";
 const sSize = [60, 60];
 let sPosition = [0, 315];
-const work = "../../resouces/cloth.png";
+const works = ["../../resouces/cloth1.jpeg", "../../resouces/cloth2.jpeg", "../../resouces/cloth3.jpeg"];
 const wSize = [60, 60];
 //产生work的坐标
 let wNodes = [50, 150, 250];
 let wPositions = [];
 //是否按住了slave
 let hasTouch = false;
-
+let timer;
+let canvasTimer;
+let totalTime = 25;
 Page({
   data: {
     //分数
     score: 0,
+    total: 20,
     //倒计时
-    time: 30,
+    time: totalTime,
   },
   onReady: function () {
+    this.init();
+  },
+  onHide() {
+    clearInterval(timer);
+    clearInterval(canvasTimer);
+  },
+  init() {
+    clearInterval(canvasTimer);
+    clearInterval(timer);
+    this.setData({
+      time: totalTime,
+      score: 0
+    })
     ctx = wx.createCanvasContext("task3");
     ctx.drawImage(master, 0, 0, ...mSize);
     ctx.drawImage(slave, 0, 315, ...sSize);
     ctx.draw();
-    setInterval(() => {
+    canvasTimer = setInterval(() => {
       this.drawFrame();
-    }, 100)
-
+    }, 90);
+    timer = setInterval(() => {
+      if (this.data.time > 0) {
+        this.setData({
+          time: --this.data.time
+        });
+      } else {
+        clearInterval(timer)
+        if (this.data.score < this.data.total) {
+          wx.showModal({
+            title: '任务失败',
+            content: '是否重来？',
+            success: res => {
+              if (res.confirm) {
+                this.init();
+              }
+            }
+          })
+        } else {
+          util.completeTask(3)
+        }
+      }
+    }, 1000)
   },
   drawFrame() {
     //移动master
@@ -49,8 +88,8 @@ Page({
     //slave
     ctx.drawImage(slave, ...sPosition, ...sSize);
     //works
-    wPositions.forEach(w => {
-      ctx.drawImage(work, ...w, ...wSize);
+    wPositions.forEach((w, i) => {
+      ctx.drawImage(works[i], ...w, ...wSize);
     })
     ctx.draw();
     //再画

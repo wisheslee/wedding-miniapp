@@ -8,7 +8,6 @@ Page({
     positions: [],
     queue: [],
     time: 10,
-    completed: false
   },
   onReady() {
     this.init();
@@ -41,17 +40,15 @@ Page({
         });
       } else {
         clearInterval(timer)
-        if (!this.data.completed) {
-          wx.showModal({
-            title: '任务失败',
-            content: '是否重来？',
-            success: res => {
-              if (res.confirm) {
-                this.init();
-              }
+        wx.showModal({
+          title: '任务失败',
+          content: '是否重来？',
+          success: res => {
+            if (res.confirm) {
+              this.init();
             }
-          })
-        }
+          }
+        })
       }
     }, 1000)
   },
@@ -117,9 +114,8 @@ Page({
       width: width,
       height: height,
       success(imgData) {
-        let flag = imgData.data.find(item => item ===1);
-        console.log(1, flag);
-        if(!flag) {
+        let flag = imgData.data.find(item => item === 1);
+        if (!flag) {
           clearInterval(timer);
           util.completeTask(4)
         }
