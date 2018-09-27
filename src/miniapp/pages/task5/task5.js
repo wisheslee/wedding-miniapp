@@ -1,66 +1,52 @@
-// pages/task5/task5.js
+import util from "../../utils/util";
+
+let totalTime = 10, timer;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    time: 10,
+    total: 20,
+    score: 0,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
-
+    this.init();
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
-
+    clearInterval(timer)
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  init() {
+    clearInterval(timer)
+    this.setData({
+      time: 10,
+      score: 0,
+    });
+    timer = setInterval(() => {
+      if (this.data.time > 0) {
+        this.setData({
+          time: --this.data.time
+        });
+      } else {
+        clearInterval(timer)
+        wx.showModal({
+          title: '任务失败',
+          content: '是否重来？',
+          success: res => {
+            if (res.confirm) {
+              this.init();
+            }
+          }
+        })
+      }
+    }, 1000)
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  sorry() {
+    if (this.data.score < this.data.total) {
+      this.setData({
+        score: ++this.data.score
+      });
+    } else {
+      clearInterval(timer);
+      util.completeTask(5);
+    }
 
   }
-})
+});

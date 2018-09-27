@@ -55,20 +55,17 @@ Page({
           time: --this.data.time
         });
       } else {
-        clearInterval(timer)
-        if (this.data.score < this.data.total) {
-          wx.showModal({
-            title: '任务失败',
-            content: '是否重来？',
-            success: res => {
-              if (res.confirm) {
-                this.init();
-              }
+        clearInterval(canvasTimer);
+        clearInterval(timer);
+        wx.showModal({
+          title: '任务失败',
+          content: '是否重来？',
+          success: res => {
+            if (res.confirm) {
+              this.init();
             }
-          })
-        } else {
-          util.completeTask(3)
-        }
+          }
+        })
       }
     }, 1000)
   },
@@ -97,7 +94,7 @@ Page({
   moveMaster() {
     //移动，更新mPosition
     mPosition[0] = mPosition[0] + mDistance > canvasW - mSize[0] ? 0 : mPosition[0] + mDistance;
-    if(wNodes.indexOf(mPosition[0]) !== -1) {
+    if (wNodes.indexOf(mPosition[0]) !== -1) {
       this.genWork(mPosition[0]);
     }
   },
@@ -109,7 +106,7 @@ Page({
   genWork(position) {
     //生成work的坐标，统一到drawFrame里渲染
     let flag = wPositions.find(item => item[0] === position);
-    if(flag) {
+    if (flag) {
       //如果该位置存在一个work，则不重复产生
       return;
     }
@@ -122,22 +119,28 @@ Page({
 
     let slaveLeft = sPosition;
     let slaveRight = [sPosition[0] + sSize[0], sPosition[1]];
-    for(let i = 0; i < wPositions.length; i++) {
+    for (let i = 0; i < wPositions.length; i++) {
       //其中一个work的position
       let position = wPositions[i];
       //检测碰撞
       //因为work比slave小，所以判断work的左右点有没和slave相交；
       //work左
       let aCondition = position[0] <= slaveLeft[0] && slaveLeft[0] <= (position[0] + wSize[0]);
-      let bCondition = position[1] <= slaveLeft[1] &&  slaveLeft[1] <= position[1] +  + wSize[1];
+      let bCondition = position[1] <= slaveLeft[1] && slaveLeft[1] <= position[1] + +wSize[1];
       //work右
       let cCondition = position[0] <= slaveRight[0] && slaveRight[0] <= (position[0] + wSize[0]);
-      let dCondition = position[1] <= slaveRight[1] &&  slaveRight[1] <= position[1] +  + wSize[1];
+      let dCondition = position[1] <= slaveRight[1] && slaveRight[1] <= position[1] + +wSize[1];
       if ((aCondition && bCondition) || (cCondition && dCondition)) {
         wPositions.splice(i, 1);
         this.setData({
           score: this.data.score + 1
         });
+        if (this.data.score >= this.data.total) {
+          clearInterval(canvasTimer);
+          clearInterval(timer);
+          util.completeTask(3)
+          break;
+        }
         continue;
       }
       //检测越界
@@ -167,7 +170,7 @@ Page({
       return;
     }
     let x = touch.x - sSize[0] / 2;
-    if (x <= 0){
+    if (x <= 0) {
       x = 0;
     }
     if (x >= (canvasW - sSize[0] / 2)) {
