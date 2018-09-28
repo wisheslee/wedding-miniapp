@@ -1,13 +1,21 @@
 <form bindsubmit="formSubmit">
-  <van-toast id="van-toast" />
-  <view class="btn-area">
-    "哈哈哈哈哈哈哈哈"
-  </view>
   <view class="page-section">
-    <view class="weui-cells__title">你想说什么？</view>
+    <view class="weui-cells__title">
+      如果最后这一张照片拍摄于2015年，那么从12年到现在，这六张照片里面没有出现哪一年的照片？
+    </view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" focus='{{true}}' name="answer" />
+        <input class="weui-input" focus='{{true}}' placeholder="只填数字" name="answer" />
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells__title">
+      请写下想对新郎新娘说的话
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" focus='{{true}}' placeholder="说什么都行" name="wish" />
       </view>
     </view>
   </view>

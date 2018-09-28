@@ -4,22 +4,26 @@ Page({
   data: {
 
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  },
   formSubmit(event) {
-    const words = event.detail.value.answer;
-    wx.request({
-      url: app.globalData.url + "/words",
-      method: "POST",
-      data: {
-        openid: app.globalData.userInfo.openid,
-        words
-      }
-    });
-    util.completeTask(6);
+    const answer = event.detail.value.answer;
+    const wish = event.detail.value.wish;
+    if (answer == 2018) {
+      wx.request({
+        url: app.globalData.url + "/words",
+        method: "POST",
+        data: {
+          openid: app.globalData.userInfo.openid,
+          words: wish
+        }
+      });
+      util.completeTask(6);
+    } else {
+      wx.showModal({
+        content: "回答错啦",
+        showCancel: false,
+        success: res => {
+        }
+      })
+    }
   }
 });
