@@ -4,7 +4,7 @@
     <view>分数：{{score}}/{{total}}</view>
   </view>
   <view class="task-text-container">
-    "ycy又惹小芊生气了，快点击说对不起吧"
+    ycy又惹小芊生气了，快点击说对不起吧
   </view>
   <button type="default" bindtap="sorry">对不起</button>
 </view>

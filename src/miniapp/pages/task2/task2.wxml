@@ -1,5 +1,14 @@
 <view class="container">
+  <view class="target">
+    <view>倒计时：{{time}}</view>
+    <view>分数：{{score}}/{{total}}</view>
+  </view>
+  <view class="task-text-container">
+    小芊生气了，不停的向ycy扔衣服，接住衣服吧
+  </view>
   <view class="canvas-container">
-    <canvas class="canvas" canvas-id="task2"></canvas>
+    <canvas class="canvas" canvas-id="task3"
+            bindtouchstart="handleTouchstart" bindtouchmove="handleTouchmove" bindtouchend="handleTouchend">
+    </canvas>
   </view>
 </view>
