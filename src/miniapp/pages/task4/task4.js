@@ -4,6 +4,7 @@ import util from "../../utils/util";
 let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1, timer;
 let totalTime = 7;
 let success = false;
+let fail = false;
 Page({
   data: {
     list: [],
@@ -22,6 +23,7 @@ Page({
   },
   init() {
     success = false;
+    fail = false;
     clearInterval(timer);
     this.setData({
       time: totalTime
@@ -47,6 +49,7 @@ Page({
       } else {
         clearInterval(timer);
         if (!success) {
+          fail = true;
           wx.showModal({
             title: '任务失败',
             content: '是否重来？',
@@ -123,7 +126,7 @@ Page({
       height: height,
       success(imgData) {
         let flag = imgData.data.find(item => item === 1);
-        if (!flag) {
+        if (!flag && !fail) {
           success = true;
           clearInterval(timer);
           util.completeTask(4)
