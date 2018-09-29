@@ -32,6 +32,8 @@ Page({
     wx.showShareMenu();
     console.log("options", options);
     this.getUserInfo(options);
+  },
+  onShow() {
     this.getCompleteUser();
   },
   getUserInfo(options) {
@@ -102,8 +104,6 @@ Page({
     this.setData({
       taskList: taskList
     });
-  },
-  onShow() {
   },
   click(event) {
     const taskId = event.currentTarget.dataset.taskid;
