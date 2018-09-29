@@ -3,11 +3,11 @@ import util from "../../utils/util";
 let ctx;
 let canvasW = 375;
 let canvasH = 375;
-const master = "../../resouces/people.png";
+const master = "../../resouces/girl.png";
 const mSize = [60, 60];
 let mPosition = [0, 0];
 const mDistance = 10;
-const slave = "../../resouces/people.png";
+const slave = "../../resouces/boy.png";
 const sSize = [60, 60];
 let sPosition = [0, 315];
 const works = ["../../resouces/cloth1.jpeg", "../../resouces/cloth2.jpeg", "../../resouces/cloth3.jpeg"];
@@ -41,8 +41,8 @@ Page({
     this.setData({
       time: totalTime,
       score: 0
-    })
-    ctx = wx.createCanvasContext("task3");
+    });
+    ctx = wx.createCanvasContext("task2");
     ctx.drawImage(master, 0, 0, ...mSize);
     ctx.drawImage(slave, 0, 315, ...sSize);
     ctx.draw();
@@ -142,7 +142,7 @@ Page({
         if (this.data.score >= this.data.total) {
           clearInterval(canvasTimer);
           clearInterval(timer);
-          util.completeTask(3)
+          util.completeTask(2);
           break;
         }
         continue;

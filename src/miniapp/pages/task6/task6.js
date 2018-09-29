@@ -20,7 +20,6 @@ Page({
     } else {
       wx.showModal({
         content: "回答错啦",
-        showCancel: false,
         success: res => {
         }
       })

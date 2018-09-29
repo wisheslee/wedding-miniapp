@@ -44,6 +44,10 @@ public class TaskController {
 
     @PostMapping(value = "/update_task_status")
     public JsonResponse updateTaskStatus(@RequestBody TaskStatusVO vo) {
+        log.info("/update_task_status", vo);
+        if (Strings.isNullOrEmpty(vo.getOpenid())) {
+            return JsonResponse.create().setStatus(400).setMsg("没有openid");
+        }
         vo.setOpenid(OpenidUtil.realOpenid(vo.getOpenid()));
         taskService.updateTaskStatus(vo.getOpenid(), vo.getTaskId());
         userService.updateTaskUpdateTime(vo.getOpenid());

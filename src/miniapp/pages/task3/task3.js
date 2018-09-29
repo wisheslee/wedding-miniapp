@@ -6,27 +6,35 @@ let canvasH = 375;
 
 //图片
 const peopleSize = [50, 50];
-const objectSize = [40, 40];
-const boy = "../../resouces/boy.png";
-const boyPos = [];
-const girl = "../../resouces/girl.png";
-const girlPos = [];
+const objectSize = [50, 50];
+const slave = "../../resouces/boy.png";
+let sPosition = [0, canvasH - peopleSize[1]];
+const master = "../../resouces/girl.png";
+let mPosition = [canvasW - peopleSize[0], 0];
 const bathtub = "../../resouces/bathtub.png";
-const bathtubPos = [];
+let bathtubPos = [250, 0];
 const bench = "../../resouces/bench.png";
-const benchPos = [];
+let benchPos = [0, 50];
 const chair = "../../resouces/chair.png";
-const chairPos = [];
+let chairPos = [0, 0];
 const chest = "../../resouces/chest.png";
-const chestPos = [];
+let chestPos = [170, 0];
 const desk = "../../resouces/desk.png";
-const deskPos = [];
-const door = "../../resouces/door.png";
-const doorPos = [];
+let deskPos = [150, 150];
 const light = "../../resouces/light.png";
-const lightPos = [];
+let lightPos = [70, 325];
 const sofa = "../../resouces/sofa.png";
-const sofaPos = [];
+let sofaPos = [150, 90];
+const dog1 = "../../resouces/dog1.png";
+let dog1Pos = [325, 120];
+const dog2 = "../../resouces/dog2.png";
+let dog2Pos = [270, 300];
+const tv = "../../resouces/tv.png";
+let tvPos = [150, 200];
+const clock = "../../resouces/clock.png";
+let clockPos = [0, 170];
+const things = [bathtub, bench, chair, chest, desk, light, sofa, dog1, dog2, tv, clock];
+let thingsPos = [bathtubPos, benchPos, chairPos, chestPos, deskPos, lightPos, sofaPos, dog1Pos, dog2Pos, tvPos, clockPos];
 
 
 //是否按住了slave
@@ -34,11 +42,9 @@ let hasTouch = false;
 let timer;
 let canvasTimer;
 let totalTime = 25;
+let success = false;
 Page({
   data: {
-    //分数
-    score: 0,
-    total: 20,
     //倒计时
     time: totalTime,
   },
@@ -50,18 +56,18 @@ Page({
     clearInterval(canvasTimer);
   },
   init() {
+    success = false;
     clearInterval(canvasTimer);
     clearInterval(timer);
     this.setData({
       time: totalTime,
-      score: 0
-    })
+    });
+    sPosition = [0, canvasH - peopleSize[1]];
     ctx = wx.createCanvasContext("task3");
-    ctx.drawImage(master, 0, 0, ...mSize);
-    ctx.drawImage(slave, 0, 315, ...sSize);
-    ctx.draw();
     canvasTimer = setInterval(() => {
-      this.drawFrame();
+      if (!success) {
+        this.drawFrame();
+      }
     }, 90);
     timer = setInterval(() => {
       if (this.data.time > 0) {
@@ -69,102 +75,76 @@ Page({
           time: --this.data.time
         });
       } else {
-        clearInterval(canvasTimer);
-        clearInterval(timer);
-        wx.showModal({
-          title: '任务失败',
-          content: '是否重来？',
-          success: res => {
-            if (res.confirm) {
-              this.init();
-            }
-          }
-        })
+        this.fail();
       }
     }, 1000)
   },
   drawFrame() {
-    //移动master
-    this.moveMaster();
-    //移动work
-    this.moveWorks();
-    //slave移动由事件驱动，这里不管
     //检测碰撞
     this.crashDetection();
+    this.successDetection();
     //先清除
     ctx.clearRect(0, 0, 375, 375);
-    //根据坐标数据，渲染master，slave，works
-    //master
-    ctx.drawImage(master, ...mPosition, ...mSize);
-    //slave
-    ctx.drawImage(slave, ...sPosition, ...sSize);
-    //works
-    wPositions.forEach((w, i) => {
-      let index = wNodes.indexOf(w[0]);
-      if (index === -1) {
-        index = 0;
-      }
-      ctx.drawImage(works[index], ...w, ...wSize);
-    })
+    //画静物
+    this.drawThings();
+    //画slave
+    ctx.drawImage(slave, ...sPosition, ...peopleSize);
     ctx.draw();
-    //再画
   },
-  moveMaster() {
-    //移动，更新mPosition
-    mPosition[0] = mPosition[0] + mDistance > canvasW - mSize[0] ? 0 : mPosition[0] + mDistance;
-    if (wNodes.indexOf(mPosition[0]) !== -1) {
-      this.genWork(mPosition[0]);
-    }
+  drawThings() {
+    ctx.drawImage(master, ...mPosition, ...peopleSize);
+    things.forEach((thing, index) => {
+      ctx.drawImage(thing, ...thingsPos[index], ...objectSize);
+    });
   },
-  moveWorks() {
-    wPositions.forEach(w => {
-      w[1] += 10;
+  fail() {
+    clearInterval(canvasTimer);
+    clearInterval(timer);
+    wx.showModal({
+      title: 'ycy把小芊吵醒了',
+      content: '是否重来？',
+      success: res => {
+        if (res.confirm) {
+          this.init();
+        }
+      }
     })
-  },
-  genWork(position) {
-    //生成work的坐标，统一到drawFrame里渲染
-    let flag = wPositions.find(item => item[0] === position);
-    if (flag) {
-      //如果该位置存在一个work，则不重复产生
-      return;
-    }
-    wPositions.push([position, mSize[1]]);
-  },
-  moveSlave() {
-    //slave移动
   },
   crashDetection() {
-
-    let slaveLeft = sPosition;
-    let slaveRight = [sPosition[0] + sSize[0], sPosition[1]];
-    for (let i = 0; i < wPositions.length; i++) {
+    let leftTop = [...sPosition];
+    let leftBottom = [sPosition[0], sPosition[1] + peopleSize[1]];
+    let rightTop = [sPosition[0] + peopleSize[0], sPosition[1]];
+    let rightBottom = [sPosition[0] + peopleSize[0], sPosition[1] + peopleSize[1]];
+    for (let i = 0; i < thingsPos.length; i++) {
       //其中一个work的position
-      let position = wPositions[i];
+      let position = thingsPos[i];
       //检测碰撞
       //因为work比slave小，所以判断work的左右点有没和slave相交；
-      //work左
-      let aCondition = position[0] <= slaveLeft[0] && slaveLeft[0] <= (position[0] + wSize[0]);
-      let bCondition = position[1] <= slaveLeft[1] && slaveLeft[1] <= position[1] + +wSize[1];
-      //work右
-      let cCondition = position[0] <= slaveRight[0] && slaveRight[0] <= (position[0] + wSize[0]);
-      let dCondition = position[1] <= slaveRight[1] && slaveRight[1] <= position[1] + +wSize[1];
-      if ((aCondition && bCondition) || (cCondition && dCondition)) {
-        wPositions.splice(i, 1);
-        this.setData({
-          score: this.data.score + 1
-        });
-        if (this.data.score >= this.data.total) {
-          clearInterval(canvasTimer);
-          clearInterval(timer);
-          util.completeTask(3)
-          break;
-        }
-        continue;
+      //leftTop
+      let aCondition = position[0] <= leftTop[0] && leftTop[0] <= (position[0] + objectSize[0]);
+      let bCondition = position[1] <= leftTop[1] && leftTop[1] <= position[1] + +objectSize[1];
+      //rightTop
+      let cCondition = position[0] <= rightTop[0] && rightTop[0] <= (position[0] + objectSize[0]);
+      let dCondition = position[1] <= rightTop[1] && rightTop[1] <= position[1] + +objectSize[1];
+      //leftBottom
+      let eCondition = position[0] <= leftBottom[0] && leftBottom[0] <= (position[0] + objectSize[0]);
+      let fCondition = position[1] <= leftBottom[1] && leftBottom[1] <= position[1] + +objectSize[1];
+      //rightBottom
+      let gCondition = position[0] <= rightBottom[0] && rightBottom[0] <= (position[0] + objectSize[0]);
+      let hCondition = position[1] <= rightBottom[1] && rightBottom[1] <= position[1] + +objectSize[1];
+      if ((aCondition && bCondition) || (cCondition && dCondition)
+        || (eCondition && fCondition) || (gCondition && hCondition)) {
+        this.fail();
+        return;
       }
-      //检测越界
-      if (position[1] > canvasH) {
-        wPositions.splice(i, 1);
-      }
+    }
+  },
+  successDetection() {
+    if (sPosition[0] === mPosition[0] && sPosition[1] === mPosition[1]) {
+      success = true;
+      clearInterval(canvasTimer);
+      clearInterval(timer);
+      util.completeTask(2);
     }
   },
   handleTouchstart(e) {
@@ -173,8 +153,8 @@ Page({
       return;
     }
     //判断是否按住了slave
-    let xCondition = sPosition[0] <= touch.x && touch.x <= sPosition[0] + sSize[0];
-    let yCondition = sPosition[1] <= touch.y && touch.y <= sPosition[1] + sSize[1];
+    let xCondition = sPosition[0] <= touch.x && touch.x <= sPosition[0] + peopleSize[0];
+    let yCondition = sPosition[1] <= touch.y && touch.y <= sPosition[1] + peopleSize[1];
     if (xCondition && yCondition) {
       hasTouch = true;
     }
@@ -187,15 +167,22 @@ Page({
     if (!touch) {
       return;
     }
-    let x = touch.x - sSize[0] / 2;
+    let x = touch.x - peopleSize[0] / 2;
+    let y = touch.y - peopleSize[1] / 2;
     if (x <= 0) {
       x = 0;
     }
-    if (x >= (canvasW - sSize[0] / 2)) {
-      x = canvasW - sSize[0] / 2
+    if (y <= 0) {
+      y = 0;
+    }
+    if (x >= (canvasW - peopleSize[0])) {
+      x = canvasW - peopleSize[0];
+    }
+    if (y >= (canvasH - peopleSize[1])) {
+      y = canvasH - peopleSize[1];
     }
     sPosition[0] = x;
-
+    sPosition[1] = y;
   },
   handleTouchend() {
     if (hasTouch) {

@@ -1,7 +1,6 @@
 <view class="container">
   <view class="target">
     <view>倒计时：{{time}}</view>
-    <view>分数：{{score}}/{{total}}</view>
   </view>
   <view class="task-text-container">
     ycy晚上回家晚了，不要碰到任何东西，否则会吵醒小芊

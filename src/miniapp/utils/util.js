@@ -44,14 +44,16 @@ export default {
       },
       success:() => {
         wx.hideLoading();
-        wx.showToast({
-          title: '恭喜集得一张照片，点击查看故事',
-          icon: 'none',
-          duration: 2000,
+        wx.showModal({
+          title: '挑战成功',
+          content: '恭喜集得一张照片，点击查看故事',
+          showCancel: false,
+          success: res => {
+            if (res.confirm) {
+              this.checkAuth();
+            }
+          }
         })
-        setTimeout(() => {
-          this.checkAuth();
-        }, 2000)
       }
     })
   }
