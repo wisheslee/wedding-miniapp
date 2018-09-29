@@ -26,7 +26,7 @@
       <view class='title'>奖励</view>
       <button class='reward-button' type="default"  data-category="大红包" bindtap="getReward">新郎手中的大红包</button>
       <button class='reward-button' type="default"  data-category="火锅" bindtap="getReward">和新婚夫妇吃火锅</button>
-      <button class='reward-button' type="default"  data-category="新郎喝酒" bindtap="getReward">新郎和伴郎连干三杯</button>
+      <button class='reward-button' type="default"  data-category="喝酒" bindtap="getReward">新郎和伴郎连干三杯</button>
     </view>
   </view>
   <view class='complete-container sub-container' wx:if="{{completeList.length > 0}}">
@@ -35,7 +35,7 @@
     </view>
     <view class="complete-person" wx:for="{{completeList}}" wx:key="{{item.openid}}">
       <view>{{item.name}}
-        <text wx:if="{{item.rewardStatus === 1}}">（已兑奖）</text>
+        <text wx:if="{{item.rewardStatus === 1}}">（已兑{{item.reward}}）</text>
       </view>
       <view>
         <text>{{item.taskStrTime}}已收集{{item.taskList.length}}张</text>

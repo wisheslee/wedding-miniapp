@@ -41,7 +41,7 @@ let thingsPos = [bathtubPos, benchPos, chairPos, chestPos, deskPos, lightPos, so
 let hasTouch = false;
 let timer;
 let canvasTimer;
-let totalTime = 25;
+let totalTime = 20;
 let success = false;
 Page({
   data: {

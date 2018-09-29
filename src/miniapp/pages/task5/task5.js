@@ -5,7 +5,7 @@ let success = false;
 Page({
   data: {
     time: 10,
-    total: 20,
+    total: 30,
     score: 0,
   },
   onReady: function () {

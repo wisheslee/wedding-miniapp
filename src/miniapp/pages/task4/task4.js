@@ -18,7 +18,7 @@ Page({
   init() {
     clearInterval(timer);
     this.setData({
-      time: 10
+      time: 7
     });
     ctx = wx.createCanvasContext("task4");
     ctx.drawImage("../../resouces/dirty.png", 70, 70, 70, 70);

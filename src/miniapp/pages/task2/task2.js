@@ -24,7 +24,7 @@ Page({
   data: {
     //分数
     score: 0,
-    total: 20,
+    total: 22,
     //倒计时
     time: totalTime,
   },
