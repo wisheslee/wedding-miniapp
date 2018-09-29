@@ -51,6 +51,10 @@ Page({
   onReady: function () {
     this.init();
   },
+  onUnload() {
+    clearInterval(timer);
+    clearInterval(canvasTimer);
+  },
   onHide() {
     clearInterval(timer);
     clearInterval(canvasTimer);

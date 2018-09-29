@@ -35,7 +35,7 @@
     </view>
     <view class="complete-person" wx:for="{{completeList}}" wx:key="{{item.openid}}">
       <view>{{item.name}}
-        <text wx:if="{{item.rewardStatus === 1}}">（已兑{{item.reward}}）</text>
+        <text wx:if="{{item.rewardStatus === 1}}">(已兑{{item.reward}})</text>
       </view>
       <view>
         <text>{{item.taskStrTime}}已收集{{item.taskList.length}}张</text>

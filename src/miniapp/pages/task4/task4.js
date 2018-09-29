@@ -2,12 +2,13 @@
 import util from "../../utils/util";
 
 let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1, timer;
+let totalTime = 7;
 Page({
   data: {
     list: [],
     positions: [],
     queue: [],
-    time: 10,
+    time: totalTime,
   },
   onReady() {
     this.init();
@@ -15,10 +16,13 @@ Page({
   onHide() {
     clearInterval(timer);
   },
+  onUnload() {
+    clearInterval(timer);
+  },
   init() {
     clearInterval(timer);
     this.setData({
-      time: 7
+      time: totalTime
     });
     ctx = wx.createCanvasContext("task4");
     ctx.drawImage("../../resouces/dirty.png", 70, 70, 70, 70);

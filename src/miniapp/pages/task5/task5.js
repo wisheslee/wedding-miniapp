@@ -14,6 +14,9 @@ Page({
   onHide: function () {
     clearInterval(timer)
   },
+  onUnload() {
+    clearInterval(timer);
+  },
   init() {
     success = false;
     clearInterval(timer)

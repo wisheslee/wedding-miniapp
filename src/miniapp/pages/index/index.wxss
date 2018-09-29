@@ -86,6 +86,9 @@
   line-height: 60rpx;
   font-size: 16px;
 }
+.complete-person view {
+  white-space: nowrap;
+}
 
 .popup-container {
   width: 75%;

@@ -35,6 +35,10 @@ Page({
     clearInterval(timer);
     clearInterval(canvasTimer);
   },
+  onUnload() {
+    clearInterval(timer);
+    clearInterval(canvasTimer);
+  },
   init() {
     clearInterval(canvasTimer);
     clearInterval(timer);
