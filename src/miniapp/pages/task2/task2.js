@@ -49,25 +49,25 @@ Page({
     canvasTimer = setInterval(() => {
       this.drawFrame();
     }, 90);
-    // timer = setInterval(() => {
-    //   if (this.data.time > 0) {
-    //     this.setData({
-    //       time: --this.data.time
-    //     });
-    //   } else {
-    //     clearInterval(canvasTimer);
-    //     clearInterval(timer);
-    //     wx.showModal({
-    //       title: '任务失败',
-    //       content: '是否重来？',
-    //       success: res => {
-    //         if (res.confirm) {
-    //           this.init();
-    //         }
-    //       }
-    //     })
-    //   }
-    // }, 1000)
+    timer = setInterval(() => {
+      if (this.data.time > 0) {
+        this.setData({
+          time: --this.data.time
+        });
+      } else {
+        clearInterval(canvasTimer);
+        clearInterval(timer);
+        wx.showModal({
+          title: '任务失败',
+          content: '是否重来？',
+          success: res => {
+            if (res.confirm) {
+              this.init();
+            }
+          }
+        })
+      }
+    }, 1000)
   },
   drawFrame() {
     //移动master
