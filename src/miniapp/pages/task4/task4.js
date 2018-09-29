@@ -3,6 +3,7 @@ import util from "../../utils/util";
 
 let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1, timer;
 let totalTime = 7;
+let success = false;
 Page({
   data: {
     list: [],
@@ -20,6 +21,7 @@ Page({
     clearInterval(timer);
   },
   init() {
+    success = false;
     clearInterval(timer);
     this.setData({
       time: totalTime
@@ -43,16 +45,18 @@ Page({
           time: --this.data.time
         });
       } else {
-        clearInterval(timer)
-        wx.showModal({
-          title: '任务失败',
-          content: '是否重来？',
-          success: res => {
-            if (res.confirm) {
-              this.init();
+        clearInterval(timer);
+        if (!success) {
+          wx.showModal({
+            title: '任务失败',
+            content: '是否重来？',
+            success: res => {
+              if (res.confirm) {
+                this.init();
+              }
             }
-          }
-        })
+          })
+        }
       }
     }, 1000)
   },
@@ -120,6 +124,7 @@ Page({
       success(imgData) {
         let flag = imgData.data.find(item => item === 1);
         if (!flag) {
+          success = true;
           clearInterval(timer);
           util.completeTask(4)
         }

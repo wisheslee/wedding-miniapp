@@ -20,6 +20,7 @@ let hasTouch = false;
 let timer;
 let canvasTimer;
 let totalTime = 25;
+let success = false;
 Page({
   data: {
     //分数
@@ -40,6 +41,7 @@ Page({
     clearInterval(canvasTimer);
   },
   init() {
+    success = false;
     clearInterval(canvasTimer);
     clearInterval(timer);
     this.setData({
@@ -61,15 +63,17 @@ Page({
       } else {
         clearInterval(canvasTimer);
         clearInterval(timer);
-        wx.showModal({
-          title: '任务失败',
-          content: '是否重来？',
-          success: res => {
-            if (res.confirm) {
-              this.init();
+        if (!success) {
+          wx.showModal({
+            title: '任务失败',
+            content: '是否重来？',
+            success: res => {
+              if (res.confirm) {
+                this.init();
+              }
             }
-          }
-        })
+          })
+        }
       }
     }, 1000)
   },
@@ -144,6 +148,7 @@ Page({
           score: this.data.score + 1
         });
         if (this.data.score >= this.data.total) {
+          success = true;
           clearInterval(canvasTimer);
           clearInterval(timer);
           util.completeTask(2);
