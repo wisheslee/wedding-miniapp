@@ -169,7 +169,7 @@ Page({
       success: (res) => {
         if (res.data.data) {
           res.data.data.forEach(user => {
-            user.taskStrTime = moment(user.taskUpdateTime).format("YYYYMMDD HH:mm");
+            user.taskStrTime = moment(user.taskUpdateTime).format("MMDD HH:mm");
           })
           this.setData({
             completeList: res.data.data
