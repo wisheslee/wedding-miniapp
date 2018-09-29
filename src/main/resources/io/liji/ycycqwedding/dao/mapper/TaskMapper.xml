@@ -4,8 +4,8 @@
 <mapper namespace="io.liji.ycycqwedding.dao.mapper.TaskMapper">
     <insert id="createTask">
         insert into task
-        (openid, task_id, status, deleted) values
-        (#{openid}, #{taskId}, #{status}, #{deleted})
+        (openid, task_id, status, lock_status, deleted) values
+        (#{openid}, #{taskId}, #{status}, #{lockStatus}, #{deleted})
     </insert>
 
     <update id="updateTaskStatus">
