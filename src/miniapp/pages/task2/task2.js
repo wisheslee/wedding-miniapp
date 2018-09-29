@@ -13,7 +13,7 @@ let sPosition = [0, 315];
 const works = ["../../resouces/cloth1.jpeg", "../../resouces/cloth2.jpeg", "../../resouces/cloth3.jpeg"];
 const wSize = [60, 60];
 //产生work的坐标
-let wNodes = [50, 150, 250];
+let wNodes = [20, 150, 270];
 let wPositions = [];
 //是否按住了slave
 let hasTouch = false;
@@ -49,25 +49,25 @@ Page({
     canvasTimer = setInterval(() => {
       this.drawFrame();
     }, 90);
-    timer = setInterval(() => {
-      if (this.data.time > 0) {
-        this.setData({
-          time: --this.data.time
-        });
-      } else {
-        clearInterval(canvasTimer);
-        clearInterval(timer);
-        wx.showModal({
-          title: '任务失败',
-          content: '是否重来？',
-          success: res => {
-            if (res.confirm) {
-              this.init();
-            }
-          }
-        })
-      }
-    }, 1000)
+    // timer = setInterval(() => {
+    //   if (this.data.time > 0) {
+    //     this.setData({
+    //       time: --this.data.time
+    //     });
+    //   } else {
+    //     clearInterval(canvasTimer);
+    //     clearInterval(timer);
+    //     wx.showModal({
+    //       title: '任务失败',
+    //       content: '是否重来？',
+    //       success: res => {
+    //         if (res.confirm) {
+    //           this.init();
+    //         }
+    //       }
+    //     })
+    //   }
+    // }, 1000)
   },
   drawFrame() {
     //移动master
@@ -86,8 +86,12 @@ Page({
     ctx.drawImage(slave, ...sPosition, ...sSize);
     //works
     wPositions.forEach((w, i) => {
-      ctx.drawImage(works[i], ...w, ...wSize);
-    })
+      let index = wNodes.indexOf(w[0]);
+      if (index === -1) {
+        index = 0;
+      }
+      ctx.drawImage(works[index], ...w, ...wSize);
+    });
     ctx.draw();
     //再画
   },

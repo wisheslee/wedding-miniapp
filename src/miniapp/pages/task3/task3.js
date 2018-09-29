@@ -3,18 +3,32 @@ import util from "../../utils/util";
 let ctx;
 let canvasW = 375;
 let canvasH = 375;
-const master = "../../resouces/people.png";
-const mSize = [60, 60];
-let mPosition = [0, 0];
-const mDistance = 10;
-const slave = "../../resouces/people.png";
-const sSize = [60, 60];
-let sPosition = [0, 315];
-const works = ["../../resouces/cloth1.jpeg", "../../resouces/cloth2.jpeg", "../../resouces/cloth3.jpeg"];
-const wSize = [60, 60];
-//产生work的坐标
-let wNodes = [50, 150, 250];
-let wPositions = [];
+
+//图片
+const peopleSize = [50, 50];
+const objectSize = [40, 40];
+const boy = "../../resouces/boy.png";
+const boyPos = [];
+const girl = "../../resouces/girl.png";
+const girlPos = [];
+const bathtub = "../../resouces/bathtub.png";
+const bathtubPos = [];
+const bench = "../../resouces/bench.png";
+const benchPos = [];
+const chair = "../../resouces/chair.png";
+const chairPos = [];
+const chest = "../../resouces/chest.png";
+const chestPos = [];
+const desk = "../../resouces/desk.png";
+const deskPos = [];
+const door = "../../resouces/door.png";
+const doorPos = [];
+const light = "../../resouces/light.png";
+const lightPos = [];
+const sofa = "../../resouces/sofa.png";
+const sofaPos = [];
+
+
 //是否按住了slave
 let hasTouch = false;
 let timer;
@@ -86,7 +100,11 @@ Page({
     ctx.drawImage(slave, ...sPosition, ...sSize);
     //works
     wPositions.forEach((w, i) => {
-      ctx.drawImage(works[i], ...w, ...wSize);
+      let index = wNodes.indexOf(w[0]);
+      if (index === -1) {
+        index = 0;
+      }
+      ctx.drawImage(works[index], ...w, ...wSize);
     })
     ctx.draw();
     //再画
