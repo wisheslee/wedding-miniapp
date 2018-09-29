@@ -1,6 +1,7 @@
 import util from "../../utils/util";
 
 let totalTime = 10, timer;
+let success = false;
 Page({
   data: {
     time: 10,
@@ -14,6 +15,7 @@ Page({
     clearInterval(timer)
   },
   init() {
+    success = false;
     clearInterval(timer)
     this.setData({
       time: 10,
@@ -39,11 +41,15 @@ Page({
     }, 1000)
   },
   sorry() {
+    if (success) {
+      return;
+    }
     if (this.data.score < this.data.total) {
       this.setData({
         score: ++this.data.score
       });
     } else {
+      success = true;
       clearInterval(timer);
       util.completeTask(5);
     }

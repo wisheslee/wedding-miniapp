@@ -144,7 +144,7 @@ Page({
       success = true;
       clearInterval(canvasTimer);
       clearInterval(timer);
-      util.completeTask(2);
+      util.completeTask(3);
     }
   },
   handleTouchstart(e) {

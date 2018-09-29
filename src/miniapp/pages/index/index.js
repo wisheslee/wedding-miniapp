@@ -29,6 +29,7 @@ Page({
   onLoad: function (options) {
     //更新完成列表。todo socket消息
     //更新用户信息，获取最新的完成状态
+    wx.showShareMenu();
     console.log("options", options);
     this.getUserInfo(options);
     this.getCompleteUser();
