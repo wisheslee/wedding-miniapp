@@ -3,6 +3,9 @@ const online = "https://wedding.allschoolthings.com";
 const test = "https://weddingtest.allschoolthings.com";
 const dev = "http://localhost:2222"
 App({
+  onLaunch() {
+    console.log("launch");
+  },
   onShow: function () {
     this.checkUpdate();
     this.checkAuth();
