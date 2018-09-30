@@ -69,10 +69,11 @@ Page({
     ctx.beginPath();
     console.log(c);
     ctx.arc(c.x, c.y, radius, 0, 2 * Math.PI);
+    ctx.closePath();
     ctx.clip();
     ctx.clearRect(0, 0, width, height);
-    ctx.draw(true);
     ctx.restore();
+    ctx.draw(true);
     x = c.x;
     y = c.y;
   },
@@ -99,8 +100,9 @@ Page({
     ctx.arc(x2, y2, radius, 0, 2 * Math.PI);
     ctx.clip();
     ctx.clearRect(0, 0, width, height);
-    ctx.draw(true);
+    ctx.closePath();
     ctx.restore();
+    ctx.draw(true);
 
     ctx.save();
     ctx.beginPath();
@@ -111,13 +113,14 @@ Page({
     ctx.closePath();
     ctx.clip();
     ctx.clearRect(0, 0, width, height);
-    ctx.draw(true);
     ctx.restore();
+    ctx.draw(true);
 
     x = x2;
     y = y2;
   },
   endHandler(e) {
+    return;
     wx.canvasGetImageData({
       canvasId: 'task4',
       x: 0,
