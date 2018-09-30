@@ -9,7 +9,7 @@ let mPosition = [0, 0];
 const mDistance = 4;
 const slave = "../../resouces/boy.png";
 const sSize = [60, 60];
-let sPosition = [0, 315];
+let sPosition = [315, 315];
 const works = ["../../resouces/cloth1.png", "../../resouces/cloth2.png", "../../resouces/cloth3.png"];
 const wSize = [60, 60];
 //产生work的坐标

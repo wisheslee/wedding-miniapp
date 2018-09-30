@@ -2,7 +2,7 @@
 import util from "../../utils/util";
 
 let ctx, radius = 16, x = 0, y = 0, width = 375, height = 375, distance = 1, timer;
-let totalTime = 7;
+let totalTime = 8;
 let success = false;
 let fail = false;
 Page({
@@ -120,7 +120,6 @@ Page({
     y = y2;
   },
   endHandler(e) {
-    return;
     wx.canvasGetImageData({
       canvasId: 'task4',
       x: 0,
