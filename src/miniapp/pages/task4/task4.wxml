@@ -8,7 +8,7 @@
     要把碗洗干净了，生活才会更美好
   </view>
   <view class="canvas-container">
-    <canvas class="canvas" canvas-id="task4"
+    <canvas class="canvas" canvas-id="task4" disable-scroll="true" binderror="error"
             bindtouchstart="startHandler" bindtouchmove="moveHandler" bindtouchend="endHandler">
     </canvas>
   </view>

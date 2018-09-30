@@ -6,7 +6,7 @@
     ycy晚上回家晚了，不要碰到任何东西，否则会吵醒小芊
   </view>
   <view class="canvas-container">
-    <canvas class="canvas" canvas-id="task3"
+    <canvas class="canvas" canvas-id="task3" disable-scroll="true"
             bindtouchstart="handleTouchstart" bindtouchmove="handleTouchmove" bindtouchend="handleTouchend">
     </canvas>
   </view>

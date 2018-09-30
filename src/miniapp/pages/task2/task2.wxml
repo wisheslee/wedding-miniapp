@@ -7,7 +7,7 @@
     小芊生气了，不停的向ycy扔衣服，接住衣服吧
   </view>
   <view class="canvas-container">
-    <canvas class="canvas" canvas-id="task2"
+    <canvas class="canvas" canvas-id="task2" disable-scroll="true"
             bindtouchstart="handleTouchstart" bindtouchmove="handleTouchmove" bindtouchend="handleTouchend">
     </canvas>
   </view>
