@@ -6,26 +6,26 @@ let canvasH = 375;
 const master = "../../resouces/girl.png";
 const mSize = [60, 60];
 let mPosition = [0, 0];
-const mDistance = 10;
+const mDistance = 4;
 const slave = "../../resouces/boy.png";
 const sSize = [60, 60];
 let sPosition = [0, 315];
-const works = ["../../resouces/cloth1.jpeg", "../../resouces/cloth2.jpeg", "../../resouces/cloth3.jpeg"];
+const works = ["../../resouces/cloth1.png", "../../resouces/cloth2.png", "../../resouces/cloth3.png"];
 const wSize = [60, 60];
 //产生work的坐标
-let wNodes = [20, 150, 270];
+let wNodes = [20, 152, 272];
 let wPositions = [];
 //是否按住了slave
 let hasTouch = false;
 let timer;
 let canvasTimer;
-let totalTime = 25;
+let totalTime = 20;
 let success = false;
 Page({
   data: {
     //分数
     score: 0,
-    total: 22,
+    total: 25,
     //倒计时
     time: totalTime,
   },
@@ -54,7 +54,7 @@ Page({
     ctx.draw();
     canvasTimer = setInterval(() => {
       this.drawFrame();
-    }, 90);
+    }, 25);
     timer = setInterval(() => {
       if (this.data.time > 0) {
         this.setData({
@@ -112,7 +112,7 @@ Page({
   },
   moveWorks() {
     wPositions.forEach(w => {
-      w[1] += 10;
+      w[1] += mDistance;
     })
   },
   genWork(position) {
