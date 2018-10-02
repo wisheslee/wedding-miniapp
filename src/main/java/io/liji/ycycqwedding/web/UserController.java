@@ -84,7 +84,7 @@ public class UserController {
         }
         user.setOpenid(OpenidUtil.realOpenid(user.getOpenid()));
         List<User> completedUserList = userService.getCompletedUser();
-        if (completedUserList.size() >= 10) {
+        if (completedUserList.size() > 10) {
             return JsonResponse.create().setStatus(400).setMsg("很遗憾，你的速度太慢了，名额已满");
         }
         userService.updateRewardStatus(user);
