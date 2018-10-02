@@ -5,7 +5,9 @@ spring:
     username: liji
     password: Syx002183
     url: jdbc:mysql://47.75.114.178:3306/ycycqweddingtest?characterEncoding=utf-8&useSSL=false
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.DriverinitialSize: 5
+    maxActive: 40
+    maxWait: 60000
   jpa:
     show-sql: true
 wechat:

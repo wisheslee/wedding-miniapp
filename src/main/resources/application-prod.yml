@@ -5,6 +5,9 @@ spring:
     username: liji
     password: Syx002183
     url: jdbc:mysql://172.31.213.8:3306/ycycqwedding?characterEncoding=utf-8&useSSL=false
+    initialSize: 5
+    maxActive: 40
+    maxWait: 60000
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     show-sql: true
