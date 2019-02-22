@@ -10,20 +10,20 @@ Page({
     memoryImage: "",
     completeList: [],
     taskList: [],
-    imageList: ["https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image0.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
-      "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image1.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
-      "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image2.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
-      "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image3.jpeg?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
-      "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image4.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
-      "https://liji-image-hangzhou.oss-cn-hangzhou.aliyuncs.com/image5.JPG?x-oss-process=image/resize,l_1080/quality,Q_50/auto-orient,1",
+    imageList: ["",
+      "",
+      "",
+      "",
+      "",
+      "",
     ],
     textList: [
-      "2016年9月13日，是我们两个月前约定的领证日期，我们买了新衣服、精心打扮了一番，专门到川大拍了结婚证照。当我们悠闲的到锦江区准备领证时，发现我们都忘带身份证！于是急忙赶回家拿了身份证，飞奔到金牛区民政局赶在工作人员下班之前领到了我们的红本本，开心~",
-      "2017年9月，我们在三亚度蜜月，那是我们俩一起第一次见到大海，我们基本每天晚上都会漫步海滩，面对磅礴的大海，我们显得如此的渺小，但我们对彼此的爱却那么满占据了我们全部的内心，不管在哪里，只要有你就好。",
-      "2014年9月，我们和一群朋友到天台山游玩，这只是我们很多时光里面平凡的一天，也是我们很多次旅行里面普通的一次，但这一切，组成了我们快乐的回忆，我们没有轰轰烈烈荡气回肠的心路历程，有的只是这样平凡简单的生活。",
-      "2013年2月，那年我们还在异地恋，寒假我们才终于有时间可以多陪伴彼此，我们约上了朋友一起到西安游玩，在城墙上好友抓拍了我们搞怪的一瞬间。每次再看到这张照片，我们都忍不住大笑，就如同那年那天",
-      "2012年11月，我们一起到上海观看星际争霸2BWC比赛，这是我们的第一次旅行，我们走过了许多陌生的接到，吃了很多新奇的食物，当时的我们还在熟悉和适应彼此，就像一场未知的旅行，明明才刚启程，却感觉兴奋和快乐到了云端。",
-      "2015年的春节，我们去了丽江和大理，我们走过了商业气息浓厚的丽江古镇，也领略了刚刚开发的大理才村，也许这不是一场完美的旅行，但只要是有彼此的回忆，我们都会珍藏。"
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   onLoad: function (options) {
